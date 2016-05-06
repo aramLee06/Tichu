@@ -1,0 +1,244 @@
+fileFormatVersion: 2
+guid: 82e2bff008f1cf748969cab13ddd4e87
+timeCreated: 1462503407
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: DoorSheet_0
+    21300002: DoorSheet_1
+    21300004: DoorSheet_2
+    21300006: DoorSheet_3
+    21300008: DoorSheet_4
+    21300010: DoorSheet_5
+    21300012: DoorSheet_6
+    21300014: DoorSheet_7
+    21300016: DoorSheet_8
+    21300018: DoorSheetRight_0
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: DoorSheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5200
+        width: 2600
+        height: 2600
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -171, y: 171.66663}
+        - {x: -171, y: -170.33337}
+        - {x: 171, y: -170.33337}
+        - {x: 171, y: 171.66663}
+    - name: DoorSheet_1
+      rect:
+        serializedVersion: 2
+        x: 2600
+        y: 5200
+        width: 2600
+        height: 2600
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -132.66669, y: 171.66663}
+        - {x: -132.66669, y: -169.33337}
+        - {x: -131.66669, y: -170.33337}
+        - {x: 171.33331, y: -170.33337}
+        - {x: 171.33331, y: 171.66663}
+    - name: DoorSheet_2
+      rect:
+        serializedVersion: 2
+        x: 5204
+        y: 5200
+        width: 2596
+        height: 2600
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -94.30823, y: 171.66663}
+        - {x: -94.30823, y: -169.33337}
+        - {x: -93.30823, y: -170.33337}
+        - {x: 170.69177, y: -170.33337}
+        - {x: 170.69177, y: 171.66663}
+    - name: DoorSheet_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2600
+        width: 2600
+        height: 2600
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -54, y: 171.33331}
+        - {x: -55, y: 170.33331}
+        - {x: -55, y: -170.66669}
+        - {x: 171, y: -170.66669}
+        - {x: 171, y: 171.33331}
+    - name: DoorSheet_4
+      rect:
+        serializedVersion: 2
+        x: 2600
+        y: 2600
+        width: 2600
+        height: 2600
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 2.333313, y: 171.33331}
+        - {x: 1.333313, y: 170.33331}
+        - {x: 1.333313, y: -170.66669}
+        - {x: 171.33331, y: -170.66669}
+        - {x: 171.33331, y: 171.33331}
+    - name: DoorSheet_5
+      rect:
+        serializedVersion: 2
+        x: 5204
+        y: 2600
+        width: 2596
+        height: 2600
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 63.691772, y: 171.33331}
+        - {x: 63.691772, y: -170.66669}
+        - {x: 170.69177, y: -170.66669}
+        - {x: 170.69177, y: 171.33331}
+    - name: DoorSheet_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 2600
+        height: 2600
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -55, y: 171}
+        - {x: -54, y: 168}
+        - {x: 97, y: 168}
+        - {x: 97, y: -171}
+        - {x: 171, y: -171}
+        - {x: 171, y: 171}
+    - name: DoorSheet_7
+      rect:
+        serializedVersion: 2
+        x: 2600
+        y: 0
+        width: 2600
+        height: 2600
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 1.333313, y: 171}
+        - {x: 2.333313, y: 168}
+        - {x: 129.33331, y: 168}
+        - {x: 129.33331, y: -171}
+        - {x: 171.33331, y: -171}
+        - {x: 171.33331, y: 171}
+    - name: DoorSheet_8
+      rect:
+        serializedVersion: 2
+        x: 5204
+        y: 8
+        width: 2596
+        height: 2588
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: DoorSheetRight_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 7800
+        height: 7800
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 1, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -396, y: 169}
+        - {x: -396, y: -171}
+        - {x: -394, y: -173}
+        - {x: -244, y: -173}
+        - {x: -244, y: -512}
+        - {x: -169, y: -512}
+        - {x: -169, y: 512}
+        - {x: -512, y: 512}
+        - {x: -512, y: 169}
+      - - {x: -131, y: 169}
+        - {x: 1, y: 169}
+        - {x: 1, y: -171}
+        - {x: 3, y: -173}
+        - {x: 129, y: -173}
+        - {x: 129, y: -512}
+        - {x: 173, y: -512}
+        - {x: 173, y: 512}
+        - {x: -133, y: 512}
+        - {x: -133, y: 171}
+      - - {x: 247, y: 512}
+        - {x: 247, y: 171}
+        - {x: 249, y: 169}
+        - {x: 405, y: 169}
+        - {x: 405, y: -171}
+        - {x: 407, y: -173}
+        - {x: 512, y: -173}
+        - {x: 512, y: 512}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

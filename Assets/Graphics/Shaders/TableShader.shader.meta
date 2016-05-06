@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 6690e3fce3eb8fe46936377fdd6c9fa3
+timeCreated: 1458887029
+licenseType: Free
+ShaderImporter:
+  defaultTextures:
+  - _Felt: {fileID: 2800000, guid: 6768298a4e8b0914582f9fb6fa111123, type: 3}
+  - _Stone: {fileID: 2800000, guid: 3e560cd6594a3f3459db4969f17ffacd, type: 3}
+  - _Wood: {fileID: 2800000, guid: 4d5ba12171a65ae43b0c84171bc6189c, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
