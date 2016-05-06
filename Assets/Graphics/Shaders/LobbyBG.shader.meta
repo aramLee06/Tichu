@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 606d68bb8743781409d42a7ad3954fd3
+timeCreated: 1460350203
+licenseType: Free
+ShaderImporter:
+  defaultTextures:
+  - _Tex: {fileID: 2800000, guid: 40f2059a0321fd04ca0373977b9c5485, type: 3}
+  - _Mask: {fileID: 2800000, guid: b9ab55e8e0fb70243bec0a68f10752a9, type: 3}
+  - _Noise: {fileID: 2800000, guid: a28feb60112241146af1bc5d64b88862, type: 3}
+  - _Wood: {fileID: 2800000, guid: 4d5ba12171a65ae43b0c84171bc6189c, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
