@@ -17,6 +17,16 @@ public static class CardCombinationDetector
 
 	public static List<CardCombination> combos;
 
+	/// <summary>
+	/// Gets the play.
+	/// </summary>
+	/// <returns>The play.</returns>
+	/// <param name="hand">Hand.</param>
+	/// <param name="playKind">Play kind.</param>
+	/// <param name="lastValue">Last value.</param>
+	/// <description>
+	/// 
+	/// </description>
 	public static List<Card> GetPlay (List<Card> hand, PlayKind playKind, float lastValue)
 	{
 		GetPossibleCombinations (hand);

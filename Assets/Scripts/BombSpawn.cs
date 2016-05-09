@@ -2,8 +2,14 @@
 using System.Collections;
 
 public class BombSpawn : MonoBehaviour {
-
+	/// <summary>
+	/// The spawn transforms.
+	/// </summary>
 	public Transform[] spawnTransforms;
+
+	/// <summary>
+	/// The end position.
+	/// </summary>
 	private Vector3 endPos;
 	private int counter = 0;
 
