@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 [RequireComponent(typeof (Image))] 
-
+[System.Obsolete("Unused")]
 public class RingsOfPower : MonoBehaviour {
 
 	public enum Ringstate {Inactive, Active, Green, Red}

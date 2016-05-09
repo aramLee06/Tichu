@@ -3,20 +3,38 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Screen user interface handler.
+/// </summary>
 public class ScreenUIHandler : UIHandler
 {
 	[Header ("Files")]
 	// Files
+	/// <summary>
+	/// The tichu graphics.
+	/// </summary>
 	public Sprite[] tichuGraphic;
+	/// <summary>
+	/// The card absorb sound.
+	/// </summary>
 	public AudioClip cardAbsorbSound;
 
 	[Header ("Player Data")]
+	/// <summary>
+	/// The players.
+	/// </summary>
 	public Player[] player;
 	//public List<CardObject>[] hand = new List<CardObject>[4];
 
 	[Header ("Game Data")]
 	// General Game Data
+	/// <summary>
+	/// The game manager.
+	/// </summary>
 	public GameManager gameManager;
+	/// <summary>
+	/// The host controller.
+	/// </summary>
 	public HostController host;
 	public int currentWorth = 0;
 	public float gameTime = 0, turnTime = 60;
@@ -24,23 +42,47 @@ public class ScreenUIHandler : UIHandler
 
 	[Header ("UI Objects")]
 	// UI Objects
+	/// <summary>
+	/// The turn indicator.
+	/// </summary>
 	public GameObject turnIndicator;
+	/// <summary>
+	/// The mah jong indicator.
+	/// </summary>
 	public GameObject mahJongIndicator;
+	/// <summary>
+	/// Various Text UI objects
+	/// </summary>
 	public Text mahjongWish,
 	gameTimer, turnTimer,
 	currentWorthCounter, currentWinnerIndicator;
+	/// <summary>
+	/// The hand displays.
+	/// </summary>
 	public HandDisplayerScreen[] handDisplays;
+	/// <summary>
+	/// Various positions
+	/// </summary>
 	public Transform trickAreaPosition,
 	playAreaPosition,
 	exitPosition,
 	cardSpawnPosition;
 
+	/// <summary>
+	/// The moving card objects.
+	/// </summary>
 	public List<GameObject>[] cardMovingObjects = new List<GameObject>[4]
 	{
 		new List<GameObject>(), new List<GameObject>(),
 		new List<GameObject>(), new List<GameObject>(),
 	};
+	/// <summary>
+	/// The card end positions.
+	/// </summary>
 	public Transform[] cardEndPositions;
+	/// <summary>
+	/// The avatar default scalings.
+	/// </summary>
 	public Vector3[] avatarDefaultScaling = new Vector3[]
 	{
 		new Vector3(1,1,1), new Vector3(-1,1,1),
@@ -67,6 +109,10 @@ public class ScreenUIHandler : UIHandler
 		}
 	}
 
+	/// <summary>
+	/// Sets the mahjong value.
+	/// </summary>
+	/// <param name="value">Value.</param>
 	public void SetMahjongValue (int value)
 	{
 		switch (value)
@@ -89,11 +135,18 @@ public class ScreenUIHandler : UIHandler
 		}
 	}
 
+	/// <summary>
+	/// Gets the hand.
+	/// </summary>
+	/// <param name="playerNumber">Player number.</param>
 	public void GetHand (int playerNumber)
 	{
 		handDisplays [playerNumber].SetCards (gameManager.players [playerNumber].hand.Count);
 	}
 
+	/// <summary>
+	/// Gets the trick.
+	/// </summary>
 	public void GetTrick ()
 	{
 		//Debug.Log ("Screen ~ Get Trick");
@@ -116,6 +169,9 @@ public class ScreenUIHandler : UIHandler
 		}
 	}
 
+	/// <summary>
+	/// Gets the play.
+	/// </summary>
 	public void GetPlay ()
 	{
 		//Debug.Log ("Gamepad ~ Get Hand");
@@ -152,11 +208,21 @@ public class ScreenUIHandler : UIHandler
 		currentWinnerIndicator.text = (gameManager.lastPlayer + 1).ToString ();
 	}
 
+	/// <summary>
+	/// Gets the card speed.
+	/// </summary>
+	/// <returns>The card speed.</returns>
+	/// <param name="target">Target.</param>
+	/// <param name="position">Position.</param>
     private float GetCardSpeed(Vector3 target, Vector3 position)
     {
 		return (Time.deltaTime * cardSpeedCurve.Evaluate(Vector3.Distance(position, target) * targetDistanceUntilSlowdown) * cardLerpSpeed);
     }
 
+	/// <summary>
+	/// Displays the play.
+	/// </summary>
+	/// <param name="play">Play.</param>
     private void DisplayPlay (List<CardObject> play)
 	{
 		for (int i = 0; i < play.Count; i++)
@@ -168,6 +234,10 @@ public class ScreenUIHandler : UIHandler
 		}
 	}
 
+	/// <summary>
+	/// Displays the trick.
+	/// </summary>
+	/// <param name="trick">Trick.</param>
 	private void DisplayTrick (List<Card> trick)
 	{
 		for (int i = 0; i < (trick.Count - play.Count); i++)
@@ -182,6 +252,9 @@ public class ScreenUIHandler : UIHandler
 		}
 	}
 
+	/// <summary>
+	/// Displays the trick reward.
+	/// </summary>
 	private void DisplayTrickReward()
 	{
 		for (int i = 0; i < cardMovingObjects.Length; i++)
@@ -212,11 +285,24 @@ public class ScreenUIHandler : UIHandler
 		}
 	}
 
+	/// <summary>
+	/// Deals the cards.
+	/// </summary>
+	/// <param name="cards">Cards.</param>
+	/// <param name="targetPos">Target position.</param>
+	/// <param name="delay">Delay.</param>
 	public void DealCards (List<Card> cards, Transform targetPos, float delay = 0.1f)
 	{
 		StartCoroutine (DelayCards (cards, targetPos, delay));
 	}
 
+	/// <summary>
+	/// Delays the cards.
+	/// </summary>
+	/// <returns>The cards.</returns>
+	/// <param name="cards">Cards.</param>
+	/// <param name="targetPosition">Target position.</param>
+	/// <param name="delay">Delay.</param>
 	public IEnumerator DelayCards (List<Card> cards, Transform targetPosition, float delay = 0.1f)
 	{
 		for (int i = 0; i < cards.Count; i++)
@@ -226,6 +312,13 @@ public class ScreenUIHandler : UIHandler
 		}
 	}
 
+	/// <summary>
+	/// Deal the specified card..
+	/// </summary>
+	/// <param name="card">Card.</param>
+	/// <param name="targetList">Target list.</param>
+	/// <param name="targetPosition">Target position.</param>
+	/// <param name="handPos">Hand position.</param>
 	public void Deal (Card card, List<Card> targetList, Transform targetPosition, int handPos)
 	{
 		if (card.cardObject == null)
@@ -238,6 +331,10 @@ public class ScreenUIHandler : UIHandler
 		}
 	}
 
+	/// <summary>
+	/// Switches the state
+	/// </summary>
+	/// <param name="state">State.</param>
 	public void StateSwitch (GameState state)
 	{
 		currentState = state;
@@ -272,19 +369,52 @@ public class ScreenUIHandler : UIHandler
 	}
 }
 
+/// <summary>
+/// Player Object
+/// </summary>
 [System.Serializable]
 public class Player
 {
 	// Player Data & UI Objects
+	/// <summary>
+	/// The player avatar.
+	/// </summary>
 	public Texture2D playerAvatar;
+	/// <summary>
+	/// The name of the player.
+	/// </summary>
 	public string playerName;
+	/// <summary>
+	/// The player score.
+	/// </summary>
 	public int playerScore;
+	/// <summary>
+	/// The hand.
+	/// </summary>
 	public List<Card> hand;
+	/// <summary>
+	/// The player handler.
+	/// </summary>
 	public PlayerHandler handler;
 
+	/// <summary>
+	/// The player score counter.
+	/// </summary>
 	public Text playerScoreCounter;
+	/// <summary>
+	/// The player name indicator.
+	/// </summary>
 	public Text playerNameIndicator;
+	/// <summary>
+	/// The player avatar display.
+	/// </summary>
 	public Image playerAvatarDisplay;
+	/// <summary>
+	/// The player card position.
+	/// </summary>
 	public Transform playerCardPosition;
+	/// <summary>
+	/// The player card spawn position.
+	/// </summary>
 	public Transform playerCardSpawnPosition;
 }

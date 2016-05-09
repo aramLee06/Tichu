@@ -2,11 +2,26 @@
 using UnityEngine.UI;
 using System.Collections;
 
+/// <summary>
+/// CardObject specificed for the Gamepad's side
+/// </summary>
 public class CardObjectGamepad : CardObject
 {
+	/// <summary>
+	/// The user interface Gamepad handler.
+	/// </summary>
 	public GamePadUIHandler uiPadHandler;
+	/// <summary>
+	/// The gamepad manager.
+	/// </summary>
 	public GamepadManager gamepadManager;
+	/// <summary>
+	/// The indicator text.
+	/// </summary>
 	public TextMesh indicatorText;
+	/// <summary>
+	/// The glow.
+	/// </summary>
 	public SpriteRenderer glow;
 
 	public override void Start ()
@@ -23,54 +38,60 @@ public class CardObjectGamepad : CardObject
 		glow.color = cardImage.material.color;
 	}
 
+	/// <summary>
+	/// Selects the card
+	/// </summary>
 	private void OnMouseDown ()
 	{
-		if (uiHandler.currentState == GameState.TRADING)
+		if (gamepadManager.ready != true)
 		{
-			if (!isSelected)
+			if (uiHandler.currentState == GameState.TRADING)
 			{
-				for (int i = 0; i <= 2; i++)
+				if (!isSelected)
 				{
-					if (i < gamepadManager.tradeSlot.Length)
+					for (int i = 0; i <= 2; i++)
 					{
-						if (gamepadManager.tradeSlot [i] == null)
+						if (i < gamepadManager.tradeSlot.Length)
 						{
-							indicatorText.text = (gamepadManager.targetPlayer [i] + 1).ToString ();
-							slotId = (SlotID)i;
-							gamepadManager.tradeSlot [i] = this;
-							isSelected = true;
-							cardImage.material.SetFloat ("_Selected", 1);
-							break;
+							if (gamepadManager.tradeSlot [i] == null)
+							{
+								indicatorText.text = (gamepadManager.targetPlayer [i] + 1).ToString ();
+								slotId = (SlotID)i;
+								gamepadManager.tradeSlot [i] = this;
+								isSelected = true;
+								cardImage.material.SetFloat ("_Selected", 1);
+								break;
+							}
 						}
 					}
 				}
+				else
+				{
+					indicatorText.text = "";
+					gamepadManager.tradeSlot [(int)slotId] = null;
+					slotId = SlotID.HAND;
+					isSelected = false;
+					cardImage.material.SetFloat ("_Selected", 0);
+				}
 			}
-			else
+			else if (uiHandler.currentState == GameState.TRICK)
 			{
-				indicatorText.text = "";
-				gamepadManager.tradeSlot [(int)slotId] = null;
-				slotId = SlotID.HAND;
-				isSelected = false;
-				cardImage.material.SetFloat ("_Selected", 0);
-			}
-		}
-		else if (uiHandler.currentState == GameState.TRICK)
-		{
-			if (!isSelected)
-			{
-				uiHandler.play.Add (this);
-				gamepadManager.playSlot.Add (this);
-				isSelected = true;
-				cardImage.material.SetFloat ("_Selected", 1);
-				glow.enabled = true;
-			}
-			else
-			{
-				uiHandler.play.Remove (this);
-				gamepadManager.playSlot.Remove (this);
-				isSelected = false;
-				cardImage.material.SetFloat ("_Selected", 0);
-				glow.enabled = false;
+				if (!isSelected)
+				{
+					uiHandler.play.Add (this);
+					gamepadManager.playSlot.Add (this);
+					isSelected = true;
+					cardImage.material.SetFloat ("_Selected", 1);
+					glow.enabled = true;
+				}
+				else
+				{
+					uiHandler.play.Remove (this);
+					gamepadManager.playSlot.Remove (this);
+					isSelected = false;
+					cardImage.material.SetFloat ("_Selected", 0);
+					glow.enabled = false;
+				}
 			}
 		}
 	}
@@ -85,6 +106,9 @@ public class CardObjectGamepad : CardObject
 		isHovering = false;
 	}
 
+	/// <summary>
+	/// Deselects other cards
+	/// </summary>
 	private void DeselectOther ()
 	{
 		for (int i = 0; i < uiPadHandler.hand.Count; i++)
@@ -97,6 +121,9 @@ public class CardObjectGamepad : CardObject
 		}
 	}
 
+	/// <summary>
+	/// Moves the card according to its state
+	/// </summary>
 	private void Update ()
 	{
 		GetComponent<Collider> ().enabled = !isDragged;

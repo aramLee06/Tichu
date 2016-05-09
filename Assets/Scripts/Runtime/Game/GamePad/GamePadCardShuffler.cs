@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Obsolete("Unused due to time constraints")]
 [RequireComponent (typeof(AudioSource))]
 public class GamePadCardShuffler : MonoBehaviour 
 {

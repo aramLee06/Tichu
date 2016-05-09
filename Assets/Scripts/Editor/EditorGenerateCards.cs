@@ -1,8 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+/// <summary>
+/// Default deck generation class
+/// </summary>
 public static class EditorGenerateCards
 {
+    /// <summary>
+    /// Generates the default, unshuffled deck
+    /// </summary>
+    /// <returns>Array of cards; the deck.</returns>
     public static Card[] GenerateCards()
     {
         int types = 4;

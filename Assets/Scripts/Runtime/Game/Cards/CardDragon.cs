@@ -1,11 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Dragon's Special Card
+/// </summary>
 [System.Serializable]
 public class CardDragon : Card
 {
+	/// <summary>
+	/// The player ID.
+	/// </summary>
     private int player;
 
+    /// <summary>
+    /// Called when the card has been placed
+    /// </summary>
+    /// <param name="playerId">ID of the player that places the card</param>
     public override void OnPlacement(int playerId)
     {
         SpecialCardEffectHandler.DragonCard();
@@ -13,6 +23,9 @@ public class CardDragon : Card
         player = playerId;
     }
 
+    /// <summary>
+    /// Called when the trick ends
+    /// </summary>
     public override void OnTrickEnd()
     {
         if(Manager.main.GetWinPlayer() == player && Manager.main.lastCard.GetType() == typeof(CardDragon))

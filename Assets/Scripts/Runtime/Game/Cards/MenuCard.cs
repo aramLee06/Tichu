@@ -1,9 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Obsolete("No longer in use")]
 public class MenuCard : MonoBehaviour 
 {
+	/// <summary>
+	/// The various speeds and offset.
+	/// </summary>
 	public float lerpSpeed = 1, rotateSpeed = 1, zOffset;
+	/// <summary>
+	/// The target and starting positions.
+	/// </summary>
 	public Transform targetPos, startingPos;
 	public bool active;
 

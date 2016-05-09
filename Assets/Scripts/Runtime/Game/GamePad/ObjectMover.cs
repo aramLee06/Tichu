@@ -2,11 +2,26 @@
 using UnityEngine.UI;
 using System.Collections;
 
+/// <summary>
+/// Moves Card Objecs accordingly
+/// </summary>
 public class ObjectMover : MonoBehaviour 
 {
+	/// <summary>
+	/// Button
+	/// </summary>
 	public Button butt;
+	/// <summary>
+	/// Various positions
+	/// </summary>
 	public Transform tradeAreaSlotPosition, playAreaExitPosition;
+	/// <summary>
+	/// The lerp speed.
+	/// </summary>
 	public float lerpSpeed;
+	/// <summary>
+	/// The user interface handler.
+	/// </summary>
 	public GamePadUIHandler uiHandler;
 
 	void Update ()

@@ -9,11 +9,20 @@ using UXLib.Connect;
 using UXLib.User;
 
 using SimpleJSON;
-
+/// <summary>
+/// Client controller.
+/// </summary>
 public class ClientController : MainController
 {
+	/// <summary>
+	/// Singleton
+	/// </summary>
 	public static new ClientController main;
+
 	public string mainScene, leadLobbyScene;
+	/// <summary>
+	/// The name of the player.
+	/// </summary>
 	public string playerName;
 
 	public bool isConnecting;
@@ -35,6 +44,9 @@ public class ClientController : MainController
 		}
 	}
 
+	/// <summary>
+	/// Connect to server!
+	/// </summary>
 	public override void Connect()
 	{
 		if (conCtrler != UXClientController.Instance)
@@ -54,6 +66,9 @@ public class ClientController : MainController
 		isConnecting = false;
 	}
 
+	/// <summary>
+	/// Join Room!
+	/// </summary>
 	public override void Join()
 	{
 		UXClientController.room.RoomNumber = m_RoomNumberInputField.text;
@@ -87,6 +102,11 @@ public class ClientController : MainController
 		base.Init ();
 	}
 
+	/// <summary>
+	/// This test app is host mode?
+	/// </summary>
+	/// <returns>true</returns>
+	/// <c>false</c>
 	public override bool isHostMode()
 	{
 		return false;

@@ -1,9 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[System.Obsolete("Unused")]
 public class ScreenShake : MonoBehaviour
 {
+	/// <summary>
+	/// The shake intensity.
+	/// </summary>
     public float shakeIntensity;
+	/// <summary>
+	/// The shake decrementation.
+	/// </summary>
     public float shakeDecrementation;
 
     public bool positionShake;

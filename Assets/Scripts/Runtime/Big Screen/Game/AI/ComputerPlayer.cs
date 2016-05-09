@@ -3,33 +3,78 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// Computer Player script, common basics for the AI
+/// </summary>
 public class ComputerPlayer : PlayerHandler
 {
+	/// <summary>
+	/// The manager.
+	/// </summary>
 	[HideInInspector]public GameManager manager;
 	[Header("AI Settings")]
+	/// <summary>
+	/// The ordered hand.
+	/// </summary>
 	public List<Card> orderedHand = new List<Card>();
+	/// <summary>
+	/// The great grand tichu chance.
+	/// </summary>
 	[Range(0,1)] public float greatGrandTichuChance = .001f;
+	/// <summary>
+	/// The first deal max value of cards possible, used by grand tichu chance.
+	/// </summary>
 	public int firstDealMaxVal = 300;
+	/// <summary>
+	/// The second deal max value of cards possible, used by tichu chance.
+	/// </summary>
 	public int secondDealMaxVal = 350;
+	/// <summary>
+	/// The think time. Artificial time so players can see what the AI has placed down before the other AI spams another play on top of it. You know, user friendliness.
+	/// </summary>
 	public float thinkTime = 1f;
 
+	/// <summary>
+	/// The Mahjing wish value.
+	/// </summary>
 	public static int wishValue = -1;
 
+	/// <summary>
+	/// The friend player identifier.
+	/// </summary>
 	private int friendId;
+	/// <summary>
+	/// Is the AI thinking?.
+	/// </summary>
 	private bool isThinking = false;
 
+	/// <summary>
+	/// Is it my turn?
+	/// </summary>
 	public bool isMyTurn;
 
+	/// <summary>
+	/// The trade slots.
+	/// </summary>
 	[HideInInspector]public Card[] tradeSlots = new Card[3];
 
+	/// <summary>
+	/// The ai module.
+	/// </summary>
 	[HideInInspector] public AIModuleBase aiModule;
 
+	/// <summary>
+	/// Set up the Computer Player
+	/// </summary>
 	private void Start()
 	{
 		manager = GameManager.main;
 		friendId = (playerId + 2) % 4;
 	}
 
+	/// <summary>
+	/// State Machine of the AI
+	/// </summary>
 	private void Update()
 	{
 		switch (manager.currentState)
@@ -63,16 +108,25 @@ public class ComputerPlayer : PlayerHandler
 				break;
 			case GameState.TRICK:
 				{
-					if(tichuType == TichuType.NONE && manager.players[friendId].tichuType == TichuType.NONE)
+					if (tichuType == TichuType.NONE)
 					{
-						manager.SetPlayerTichu(this);
-						tichuType = wantedTichu;
+						if (manager.players [friendId].tichuType == TichuType.NONE)
+						{
+							if (wantedTichu != TichuType.NONE)
+							{
+								tichuType = wantedTichu;
+								displayTichu.Display (tichuType);
+							}
+						}
 					}
 				}
 				break;
 		}
 	}
 
+	/// <summary>
+	/// Perform the AI's Trick actions.
+	/// </summary>
 	public void DoTrick()
 	{
 		//Debug.Log(playerId + " doing trick. " + manager.MostPlayersOut());
@@ -104,6 +158,9 @@ public class ComputerPlayer : PlayerHandler
 		}
 	}
 
+	/// <summary>
+	/// Performs the AI's turn.
+	/// </summary>
 	private IEnumerator PerformTurn()
 	{
 		orderedHand = CombinationHandler.OrderCards(hand);
@@ -167,6 +224,11 @@ public class ComputerPlayer : PlayerHandler
 	public List<CardCombination> straightCombos;
 	public List<CardCombination> bombCombos;
 
+	/// <summary>
+	/// Checks if the parameter card is not a special card
+	/// </summary>
+	/// <param name="card">The card to check</param>
+	/// <returns>Returns true if the card is not special</returns>
 	private bool IsRegularCard(Card card)
 	{
 		if (card.GetType() == typeof(CardDog) || card.GetType() == typeof(CardDragon) || card.GetType() == typeof(CardMahJong) || card.GetType() == typeof(CardPhoenix))
@@ -174,6 +236,9 @@ public class ComputerPlayer : PlayerHandler
 		return true;
 	}
 
+	/// <summary>
+	/// Generates the possible combinations the AI has.
+	/// </summary>
 	private void GetPossibleCombinations()
 	{
 		pairCombos = new List<CardCombination>();
@@ -328,6 +393,7 @@ public class ComputerPlayer : PlayerHandler
 		}
 	}
 
+	//Makes the AI skip a turn
 	public void Pass()
 	{
 		isReady = true;
@@ -337,6 +403,9 @@ public class ComputerPlayer : PlayerHandler
 
 	TichuType wantedTichu = TichuType.NONE;
 
+	/// <summary>
+	/// Causes the AI to call Tichu
+	/// </summary>
 	private void CallTichu()
 	{
 		float chance = 0;
@@ -361,6 +430,9 @@ public class ComputerPlayer : PlayerHandler
 		}
 	}
 
+	/// <summary>
+	/// Sets up the AI's trade action
+	/// </summary>
 	private void SetupTrade()
 	{
 		int slotId = 0;
@@ -391,6 +463,9 @@ public class ComputerPlayer : PlayerHandler
         }
     }*/
 
+	/// <summary>
+	/// Performs the AI's trade action. Must be setup first using SetupTrade()
+	/// </summary>
 	public void PerformTrade()
 	{
 		int slotId = 0;
@@ -414,6 +489,10 @@ public class ComputerPlayer : PlayerHandler
 		//hasTraded = true;
 	}
 
+	/// <summary>
+	/// Returns the total value of the AI's hand
+	/// </summary>
+	/// <returns>The total value of the AI's hand</returns>
 	private int HandValue()
 	{
 		int val = 0;

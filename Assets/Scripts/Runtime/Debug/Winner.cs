@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
+[System.Obsolete("Debug script.")]
 [RequireComponent(typeof(Text))]
 public class Winner : MonoBehaviour
 {

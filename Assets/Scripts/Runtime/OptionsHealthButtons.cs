@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
+[System.Obsolete("Unused")]
 public class OptionsHealthButtons : MonoBehaviour {
 
 

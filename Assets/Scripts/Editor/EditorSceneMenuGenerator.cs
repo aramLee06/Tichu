@@ -10,6 +10,9 @@ using System.IO;
  * 13-04-2016
  */
 
+    /// <summary>
+    /// An editor script that will generate quick-menus to certain scenes.
+    /// </summary>
 public class EditorSceneMenuGenerator
 {
 	/* The folder that the menu script will be generated to. Has to be an Editor folder.
@@ -38,6 +41,10 @@ public class EditorSceneMenuGenerator
 	public static bool hideOthers = false;
 
 	// The actual code. Don't touch if you don't know what you're doing!
+
+    /// <summary>
+    /// Generates the script that contains the scene loading data and respective menus.
+    /// </summary>
     [MenuItem("Scenes/Get All &c")]
     public static void GenerateScript ()
     {
@@ -97,6 +104,14 @@ public class EditorSceneMenuGenerator
 		}
     }
 
+    /// <summary>
+    /// Writes the scene-loading editor functions
+    /// </summary>
+    /// <param name="writer">Streamwriter to use</param>
+    /// <param name="scenePath">Path to the scene</param>
+    /// <param name="sceneMenuName">Name of the scene in the menu</param>
+    /// <param name="sceneName">Name of the scene in the project</param>
+    /// <param name="priority">Priority in the menu</param>
 	public static void WriteSceneData (StreamWriter writer, string scenePath, string sceneMenuName, string sceneName, int priority = 0)
 	{
 		writer.Write ("[MenuItem(\"Scenes/OPEN " + sceneMenuName + "\", false, " + priority.ToString() + ")]");
@@ -105,6 +120,10 @@ public class EditorSceneMenuGenerator
 		writer.Write ("}");
 	}
 
+    /// <summary>
+    /// Opens the specified scene
+    /// </summary>
+    /// <param name="path">Path to the specified scene</param>
     public static void OpenScene (string path)
     {
         if (EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo ())

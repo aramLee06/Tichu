@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
+[System.Obsolete("Unused")]
 [RequireComponent(typeof(Text))]
 public class ScoreDisplay : MonoBehaviour
 {

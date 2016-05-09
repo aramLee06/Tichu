@@ -2,11 +2,23 @@
 using UnityEngine.UI;
 using System.Collections;
 
+/// <summary>
+/// Options menu handler.
+/// </summary>
 public class OptionsMenuHandler : MonoBehaviour
 {
+	/// <summary>
+	/// Singleton
+	/// </summary>
     public static OptionsMenuHandler main;
 
+	/// <summary>
+	/// Sliders
+	/// </summary>
     public Slider musicSlider, screenSoundSlider, localSoundSlider;
+	/// <summary>
+	/// The pause object.
+	/// </summary>
     public GameObject pauseObject;
 
     private void Awake()
@@ -15,30 +27,45 @@ public class OptionsMenuHandler : MonoBehaviour
             main = this;
     }
 
+	/// <summary>
+	/// Sets the music volume.
+	/// </summary>
     public void SetMusicVolume()
     {
         GameOptions.musicVolume = musicSlider.value;
         SendSettings();
     }
 
+	/// <summary>
+	/// Sets the screen sound volume.
+	/// </summary>
     public void SetScreenSoundVolume()
     {
         GameOptions.soundVolume = screenSoundSlider.value;
         SendSettings();
     }
 
+	/// <summary>
+	/// Sets the local sound volume.
+	/// </summary>
     public void SetLocalSoundVolume()
     {
         GameOptions.localSoundVolume = localSoundSlider.value;
         AudioListener.volume = GameOptions.localSoundVolume;
     }
 
+	/// <summary>
+	/// Sets the language.
+	/// </summary>
     public void SetLanguage()
     {
         //GameOptions.language = ???;
         SendSettings();
     }
 
+	/// <summary>
+	/// Updates the option elements.
+	/// </summary>
     public void UpdateOptionElements()
     {
         musicSlider.value = GameOptions.musicVolume;
@@ -52,6 +79,9 @@ public class OptionsMenuHandler : MonoBehaviour
         }
     }
 
+	/// <summary>
+	/// Sends the settings.
+	/// </summary>
     public void SendSettings()
     {
         int playerNumber = GamepadManager.main.playerNumber;
@@ -67,6 +97,10 @@ public class OptionsMenuHandler : MonoBehaviour
         }
     }
 
+	/// <summary>
+	/// Pauses/Unpauses the game.
+	/// </summary>
+	/// <param name="pause">If set to <c>true</c> pause.</param>
     public void PauseUnpauseGame(bool pause)
     {
         pauseObject.SetActive(pause);

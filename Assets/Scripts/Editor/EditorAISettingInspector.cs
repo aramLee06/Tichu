@@ -3,6 +3,9 @@ using UnityEditor;
 using System.Collections;
 using UnityEditor.SceneManagement;
 
+/// <summary>
+/// Editor script for SetAIDifficulty.cs monobehaviour
+/// </summary>
 [CanEditMultipleObjects]
 [CustomEditor(typeof(SetAIDifficulty))]
 public class EditorAISettingInspector : Editor

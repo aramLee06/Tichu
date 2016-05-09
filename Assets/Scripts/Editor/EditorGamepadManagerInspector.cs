@@ -2,6 +2,9 @@
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
+/// <summary>
+/// Custom editor for GamepadManager.cs monobehaviour
+/// </summary>
 [CustomEditor(typeof(GamepadManager))]
 public class EditorGamepadManagerInspector : Editor
 {
@@ -18,6 +21,9 @@ public class EditorGamepadManagerInspector : Editor
         base.OnInspectorGUI();
     }
 
+    /// <summary>
+    /// Generate default decks
+    /// </summary>
     private void GenerateCards()
     {
         GamepadManager gpm = (GamepadManager)target;

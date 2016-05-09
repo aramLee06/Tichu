@@ -2,6 +2,9 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 
+/// <summary>
+/// Game end board.
+/// </summary>
 public class GameEndBoard : MonoBehaviour
 {
 	[Header ("Winning Team")]
@@ -19,14 +22,33 @@ public class GameEndBoard : MonoBehaviour
 	public Image[] loseAvatar;
 
 	[Header ("General")]
+	/// <summary>
+	/// The background.
+	/// </summary>
 	public Image background;
 	public Sprite[] backgroundSprite;
 	public Color blue, red;
+	/// <summary>
+	/// The happy avatars.
+	/// </summary>
 	public Sprite[] happyAvatars;
+	/// <summary>
+	/// The sad avatars.
+	/// </summary>
 	public Sprite[] sadAvatars;
+	/// <summary>
+	/// The end song.
+	/// </summary>
 	public AudioSource endSong;
+	/// <summary>
+	/// The gameplay music.
+	/// </summary>
 	public DynaMusicHandler gameplayMusic;
 
+	/// <summary>
+	/// Updates the scoreboard.
+	/// </summary>
+	/// <param name="winningTeam">Winning team.</param>
 	public void UpdateScoreboard (int winningTeam)
 	{
 		gameplayMusic.Stop ();

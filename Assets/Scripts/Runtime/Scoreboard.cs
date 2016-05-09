@@ -2,15 +2,42 @@
 using UnityEngine.UI;
 using System.Collections.Generic;
 
+/// <summary>
+/// Scoreboard.
+/// </summary>
 public class Scoreboard : MonoBehaviour
 {
+	/// <summary>
+	/// The round's score text.
+	/// </summary>
 	public Text[] roundScoreText;
+	/// <summary>
+	/// The total score text.
+	/// </summary>
 	public Text[] totalScoreText;
+	/// <summary>
+	/// The name of the player.
+	/// </summary>
 	public Text[] playerName;
+	/// <summary>
+	/// The placement image.
+	/// </summary>
 	public Image[] placementImage;
+	/// <summary>
+	/// The placement sprites.
+	/// </summary>
 	public Sprite[] placementSprites;
+	/// <summary>
+	/// The text colors.
+	/// </summary>
 	public Color[] normalColor, highColor;
 
+	/// <summary>
+	/// Updates the scoreboard.
+	/// </summary>
+	/// <returns>The placement.</returns>
+	/// <param name="roundScores">Round scores.</param>
+	/// <param name="outOrder">Out order.</param>
 	public int[] UpdateScoreboard(int[] roundScores, int[] outOrder)
 	{
 		int[] place = new int[roundScores.Length];

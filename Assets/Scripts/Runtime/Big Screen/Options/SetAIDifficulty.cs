@@ -1,9 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// AI Adjusting script
+/// </summary>
 [RequireComponent(typeof(ComputerPlayer))]
 public class SetAIDifficulty : MonoBehaviour
 {
+	/// <summary>
+	/// The modules.
+	/// </summary>
     public AIModuleBase[] modules;
 
     private void Start()

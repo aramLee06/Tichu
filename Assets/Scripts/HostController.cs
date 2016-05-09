@@ -8,11 +8,19 @@ using UXLib.Connect;
 using UXLib.User;
 
 using SimpleJSON;
-
+/// <summary>
+/// Host controller.
+/// </summary>
 public class HostController : MainController
 {
+	/// <summary>
+	/// Singleton
+	/// </summary>
 	public static new HostController main;
 
+	/// <summary>
+	/// The names of the players.
+	/// </summary>
 	public string[] playerName = new string[4];
 
 	[SerializeField]
@@ -41,6 +49,9 @@ public class HostController : MainController
 		}
 	}
 
+	/// <summary>
+	/// Connect to server!
+	/// </summary>
 	public override void Connect()
 	{
 		conCtrler = UXHostController.Instance;
@@ -50,6 +61,9 @@ public class HostController : MainController
 		base.Connect ();
 	}
 
+	/// <summary>
+	/// Join Room!
+	/// </summary>
 	public override void Join()
 	{
 		base.Join ();
@@ -71,6 +85,11 @@ public class HostController : MainController
 
 	#region Event
 
+	/// <summary>
+	/// Raises the received event.
+	/// </summary>
+	/// <param name="userIndex">User index.</param>
+	/// <param name="msg">Message.</param>
 	protected override void OnReceived (int userIndex, string msg)
 	{
 		base.OnReceived (userIndex, msg);
@@ -79,6 +98,11 @@ public class HostController : MainController
 			LobbyHandler.main.ReceiveData (userIndex, msg);
 	}
 
+	/// <summary>
+	/// Raises the user removed event.
+	/// </summary>
+	/// <param name="name">Name.</param>
+	/// <param name="code">Code.</param>
 	protected override void OnUserRemoved (string name, int code)
 	{
 		base.OnUserRemoved (name, code);

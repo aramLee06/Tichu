@@ -2,22 +2,55 @@
 using UnityEngine.UI;
 using System.Collections;
 
+/// <summary>
+/// A script that manages a specific character's profile icon
+/// </summary>
 [RequireComponent(typeof(Image))]
 public class ProfileIconManager : MonoBehaviour
 {
+	/// <summary>
+	/// The character.
+	/// </summary>
     public Character character;
+	/// <summary>
+	/// Is the avatar on the top half of the screen?
+	/// </summary>
     public bool topAvatar;
+	/// <summary>
+	/// Various sprites for emotions
+	/// </summary>
     private Sprite happy, neutral, sad;
 
+	/// <summary>
+	/// The flow lerp speed.
+	/// </summary>
     [Range(0,1)] public float flowLerp = .1f;
 
+	/// <summary>
+	/// The transforms.
+	/// </summary>
     public Transform upperTransform, lowerTransform;
+	/// <summary>
+	/// The card place scaling curve.
+	/// </summary>
     public AnimationCurve cardPlaceScaleCurve;
+	/// <summary>
+	/// The initial scale.
+	/// </summary>
     public Vector3 initialScale = Vector3.one;
 
+	/// <summary>
+	/// The animation time.
+	/// </summary>
     public float animationTime = 1;
+	/// <summary>
+	/// The animation speed.
+	/// </summary>
     public float animationSpeed = .1f;
 
+	/// <summary>
+	/// The profile images.
+	/// </summary>
     private Image upperImage, lowerImage;
 
     private void Awake()
@@ -52,6 +85,10 @@ public class ProfileIconManager : MonoBehaviour
             SetEmotion(Emotion.SAD);
     }
 
+    /// <summary>
+    /// Changes the Profile's emotion
+    /// </summary>
+    /// <param name="emotion">The new emotion</param>
     public void SetEmotion(Emotion emotion)
     {
         upperTransform.gameObject.SetActive(true);
@@ -71,6 +108,9 @@ public class ProfileIconManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Smoothens the transition between emotions
+    /// </summary>
     private void FlowBetweenEmotions()
     {
         if (upperImage.gameObject.activeSelf)
@@ -86,6 +126,9 @@ public class ProfileIconManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Increases the profile icon's scaling when collected cards get near (during the trick end phase).
+    /// </summary>
     private void CardPlaceScaling()
     {
         if (animationTime < 1)

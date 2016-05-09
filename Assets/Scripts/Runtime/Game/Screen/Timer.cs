@@ -3,17 +3,38 @@ using UnityEngine.UI;
 using System;
 using System.Collections;
 
+/// <summary>
+/// Timer end event delegate.
+/// </summary>
 public delegate void TimerEnd(EventArgs args);
 
+/// <summary>
+/// Timer.
+/// </summary>
 [RequireComponent(typeof(Text))]
 public class Timer : MonoBehaviour
 {
+	/// <summary>
+	/// Occurs when the timer ends.
+	/// </summary>
     public event TimerEnd timerEndEvent = delegate{ };
+	/// <summary>
+	/// Start on wakeup?
+	/// </summary>
     public bool startOnAwake = true;
+	/// <summary>
+	/// The time.
+	/// </summary>
     public float time;
+	/// <summary>
+	/// The current time.
+	/// </summary>
     private float currentTime;
     public bool active, showHours;
 
+	/// <summary>
+	/// The timer text.
+	/// </summary>
     private Text timerText;
 
     public void Start()
@@ -29,16 +50,25 @@ public class Timer : MonoBehaviour
             Play();
     }
 
+	/// <summary>
+	/// Play this instance.
+	/// </summary>
     public void Play()
     {
         active = true;
     }
 
+	/// <summary>
+	/// Stop this instance.
+	/// </summary>
     public void Stop()
     {
         active = false;
     }
 
+	/// <summary>
+	/// Reset this instance.
+	/// </summary>
     public void Reset()
     {
         currentTime = time;

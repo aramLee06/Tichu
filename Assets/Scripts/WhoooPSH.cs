@@ -2,7 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(AudioSource))]
-
+[System.Obsolete("Unused")]
 public class WhoooPSH : MonoBehaviour {
 
 	private Transform myTrans;

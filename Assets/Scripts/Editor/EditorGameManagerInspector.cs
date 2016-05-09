@@ -2,6 +2,9 @@
 using UnityEditor.SceneManagement;
 using UnityEditor;
 
+/// <summary>
+/// Custom editor for GameManager.cs Monobehaviour
+/// </summary>
 [CustomEditor(typeof(GameManager))]
 public class EditorGameManagerInspector : Editor
 {
@@ -18,6 +21,9 @@ public class EditorGameManagerInspector : Editor
         base.OnInspectorGUI();
     }
 
+    /// <summary>
+    /// Generate default deck
+    /// </summary>
     private void GenerateCards()
     {
         GameManager manager = (GameManager)target;

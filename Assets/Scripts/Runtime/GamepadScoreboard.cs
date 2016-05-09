@@ -2,16 +2,31 @@
 using UnityEngine.UI;
 using System.Collections;
 
+/// <summary>
+/// Gamepad scoreboard.
+/// </summary>
 public class GamepadScoreboard : MonoBehaviour
 {
+	/// <summary>
+	/// The child object.
+	/// </summary>
     private GameObject child;
 
     public Text roundScoreText, totalScoreText, playerText;
     public Image placementImage, background;
 
+	/// <summary>
+	/// The placement number sprite.
+	/// </summary>
     public Sprite[] placementNumberSprite;
+	/// <summary>
+	/// The background sprite.
+	/// </summary>
 	public Sprite[] backgroundSprite;
 
+	/// <summary>
+	/// The text color blue.
+	/// </summary>
 	public Color textColorBlue;
 
     private void Start()
@@ -34,6 +49,10 @@ public class GamepadScoreboard : MonoBehaviour
         child.SetActive(active);
     }
 
+	/// <summary>
+	/// Sets the player number.
+	/// </summary>
+	/// <param name="number">Number.</param>
     public void SetPlayerNumber(int number)
     {
 		if (ClientController.main.playerName != "")

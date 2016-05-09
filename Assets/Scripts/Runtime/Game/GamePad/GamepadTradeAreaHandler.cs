@@ -2,13 +2,31 @@
 using UnityEngine.UI;
 using System.Collections;
 
+/// <summary>
+/// Handler for the trading area
+/// </summary>
 public class GamepadTradeAreaHandler : MonoBehaviour 
 {
+	/// <summary>
+	/// The button.
+	/// </summary>
 	public Button butt;
+	/// <summary>
+	/// The lerp speed.
+	/// </summary>
 	public float lerpSpeed = 1;
+	/// <summary>
+	/// The slot identifier.
+	/// </summary>
 	public SlotID slotId;
+	/// <summary>
+	/// Various trade slot area positions
+	/// </summary>
 	public Transform tradeAreaSlotPosition, playAreaExitPosition;
 
+	/// <summary>
+	/// The user interface handler.
+	/// </summary>
 	public GamePadUIHandler uiHandler;
 
 	void Update () 

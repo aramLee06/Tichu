@@ -1,8 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Manager/handler for the Menus
+/// </summary>
 public class MenuManager : Manager
 {
+	/// <summary>
+	/// The singleton.
+	/// </summary>
     new public static MenuManager main;
 
     public override void Awake()
@@ -12,6 +18,10 @@ public class MenuManager : Manager
             main = this;
     }
 
+    /// <summary>
+    /// Handler for when data is received
+    /// </summary>
+    /// <param name="data">Received data string</param>
 	public override void ReceiveData(string data)
     {
         char[] bytes = data.ToCharArray();

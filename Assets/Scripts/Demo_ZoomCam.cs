@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+[System.Obsolete("Unused")]
 public class Demo_ZoomCam : MonoBehaviour {
 
 	public Camera myCam;

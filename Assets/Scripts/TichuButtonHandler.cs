@@ -4,7 +4,13 @@ using System.Collections;
 
 public class TichuButtonHandler : MonoBehaviour
 {
+	/// <summary>
+	/// The image.
+	/// </summary>
 	public Image image;
+	/// <summary>
+	/// The tichu sprite to use.
+	/// </summary>
 	public Sprite[] tichuSprite;
 
 	public void SetTichu (GameState state)

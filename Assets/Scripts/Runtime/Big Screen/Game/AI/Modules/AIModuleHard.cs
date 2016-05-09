@@ -2,9 +2,19 @@
 using System;
 using System.Collections.Generic;
 
+/// <summary>
+/// The Hard AI's module
+/// </summary>
 [Serializable]
 public class AIModuleHard : AIModuleBase
 {
+    /// <summary>
+    /// Performs the AI's turn
+    /// </summary>
+    /// <param name="computerPlayer">The ComputerPlayer this module is attached to</param>
+    /// <param name="kind">The kind of play the AI did</param>
+    /// <param name="earlyPass">Did the AI pass earlier?</param>
+    /// <param name="wishCards">List of cards for the Mahjong's wish</param>
     public override void PerformTurn(ComputerPlayer computerPlayer, out PlayKind kind, out bool earlyPass, List<Card> wishCards)
     {
         kind = PlayKind.NONE;
@@ -199,6 +209,11 @@ public class AIModuleHard : AIModuleBase
         }
     }
 
+    /// <summary>
+    /// Sets the AI's trade
+    /// </summary>
+    /// <param name="computerPlayer">The ComputerPlayer this module is attached to</param>
+    /// <param name="friendId">The player ID of the AI's teammate</param>
     public override void SetupTrade(ComputerPlayer computerPlayer, int friendId)
     {
         List<Card> tradeHand = new List<Card>(computerPlayer.orderedHand);

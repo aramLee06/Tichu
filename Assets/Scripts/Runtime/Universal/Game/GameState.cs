@@ -1,4 +1,7 @@
-﻿public enum GameState
+﻿/// <summary>
+/// Game state.
+/// </summary>
+public enum GameState
 {
     ROUND_START, //Start of round. Player can decide to Grand Grand Tichu or not.
     FIRST_DEAL, //First deal. Players get 8 cards each, and can decide to Grand Tichu or not.

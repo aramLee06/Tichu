@@ -3,26 +3,57 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// UI Handler for the Gamepad
+/// </summary>
 public class GamePadUIHandler : UIHandler 
 {
 	[Header("General")]
+	/// <summary>
+	/// The gamepad manager.
+	/// </summary>
 	public GamepadManager gamepadManager;
+	/// <summary>
+	/// The player number.
+	/// </summary>
 	public byte playerNumber = 0;
 
+	/// <summary>
+	/// Various positions
+	/// </summary>
 	public Transform cardPosition, playPosition, cardSpawnPosition, playAreaSlotPosition;
+	/// <summary>
+	/// The trade slot positions.
+	/// </summary>
 	public Transform[] tradeSlotPosition;
 
+	/// <summary>
+	/// The dragon give buttons.
+	/// </summary>
 	public Button[] dragonGiveButton;
+	/// <summary>
+	/// The dragon sprites.
+	/// </summary>
 	public Sprite[] dragonSprites;
 
 	public bool response = false;
+	/// <summary>
+	/// The special target number.
+	/// </summary>
 	public int specialTarget;
 
+	/// <summary>
+	/// The hand.
+	/// </summary>
 	public List<Card> hand;
 
+	/// <summary>
+	/// Various buttons
+	/// </summary>
 	public Button
 	playButton, passButton,
 	tichuButton;
+
 	public Button[] buttonsDisabledOnNotTurn, tradeArea;
 	public GameObject notYourTurnPanel, mahjongScreen, dragonScreen;
 
@@ -44,6 +75,9 @@ public class GamePadUIHandler : UIHandler
 		DisplayCards ();
 	}
 
+    /// <summary>
+    /// Handles Dragon Event UI-side
+    /// </summary>
 	public void Dragon ()
 	{
 		dragonGiveButton [0].image.sprite = dragonSprites[gamepadManager.targetPlayer[0]];
@@ -54,17 +88,30 @@ public class GamePadUIHandler : UIHandler
 		StartCoroutine (WaitForResponse(dragonScreen, true));
 	}
 
+    /// <summary>
+    /// Handles Mhajong Event UI-side
+    /// </summary>
 	public void Mahjong ()
 	{
 		StartCoroutine (WaitForResponse(mahjongScreen, false));
 	}
 
+    /// <summary>
+    /// Handles respond from Dragon/Mahjong event
+    /// </summary>
+    /// <param name="target">Target value (Case of dragon: Player to give cards to, case of mahjong: wish value)</param>
 	public void Respond (int target)
 	{
 		response = true;
 		specialTarget = target;
 	}
 
+    /// <summary>
+    /// Waits for mahjong/dragon event's resonse
+    /// </summary>
+    /// <param name="screen">Screen object</param>
+    /// <param name="isDragon">Whether it's for the dragon event or not</param>
+    /// <returns></returns>
 	public IEnumerator WaitForResponse (GameObject screen, bool isDragon)
 	{
 		response = false;
@@ -86,6 +133,9 @@ public class GamePadUIHandler : UIHandler
 		screen.SetActive (false);
 	}
 
+    /// <summary>
+    /// Gets the current hand
+    /// </summary>
 	public void GetHand ()
 	{
 		//Debug.Log ("Gamepad ~ Get Hand");
@@ -108,6 +158,13 @@ public class GamePadUIHandler : UIHandler
 		}
 	}
 
+    /// <summary>
+    /// Gets the card's position in the hand
+    /// </summary>
+    /// <param name="card">Specified card</param>
+    /// <param name="array">The hand</param>
+    /// <param name="arrangeBySuit"></param>
+    /// <returns></returns>
 	public int GetHandPos (Card card, Card[] array, bool arrangeBySuit = false)
 	{
 		float cardValue = 0;
@@ -165,6 +222,9 @@ public class GamePadUIHandler : UIHandler
 		}
 	}
 
+    /// <summary>
+    /// Displays the current cards
+    /// </summary>
 	private void DisplayCards ()
 	{
 		for (int i = 0; i < hand.Count; i++)
@@ -224,6 +284,9 @@ public class GamePadUIHandler : UIHandler
 		}
 	}
 
+    /// <summary>
+    /// Show the automatically suggested-to-play cards
+    /// </summary>
 	public void DisplaySuggestedPlay ()
 	{
 		if (currentState == GameState.TRICK)
@@ -267,6 +330,9 @@ public class GamePadUIHandler : UIHandler
 		}
 	}
 
+    /// <summary>
+    /// Show the trade-selected cards
+    /// </summary>
 	private void DisplayTrade ()
 	{
 		for (int i = 0; i < gamepadManager.tradeSlot.Length; i++)
@@ -282,6 +348,10 @@ public class GamePadUIHandler : UIHandler
 		}
 	}
 
+    /// <summary>
+    /// Places the card for trade/play
+    /// </summary>
+    /// <param name="card">target Card object</param>
 	public void PlaceCard (CardObject card)
 	{
 		card.isSelected = false;
@@ -345,7 +415,8 @@ public class GamePadUIHandler : UIHandler
 		}
 	}
 
-	public void DisplayNotYourTurn (bool active)
+    [System.Obsolete("Unused")]
+    public void DisplayNotYourTurn (bool active)
 	{
 		if (notYourTurnPanel.activeSelf != active)
 		{
@@ -353,6 +424,9 @@ public class GamePadUIHandler : UIHandler
 		}
 	}
 
+    /// <summary>
+    /// Plays the selected cards. Called by UI Button.
+    /// </summary>
 	public void Play ()
 	{
 		Debug.Log ("Play");
@@ -360,6 +434,9 @@ public class GamePadUIHandler : UIHandler
 		gamepadManager.SetReady ();
 	}
 
+    /// <summary>
+    /// Skip current turn. Called by UI Button.
+    /// </summary>
 	public void Pass ()
 	{
 		Debug.Log ("Pass");
@@ -376,6 +453,9 @@ public class GamePadUIHandler : UIHandler
 		}
 	}
 
+    /// <summary>
+    /// Call Tichu. Called by UI Button
+    /// </summary>
 	public void Tichu ()
 	{
 		gamepadManager.CallTichu ();
@@ -383,16 +463,22 @@ public class GamePadUIHandler : UIHandler
 		tichuButton.interactable = false;
 	}
 
-	public void Pause ()
+    [System.Obsolete("Unused")]
+    public void Pause ()
 	{
 		Debug.Log ("Pause");
 	}
 
-	public void Language (float value)
+    [System.Obsolete("Unused")]
+    public void Language (float value)
 	{
 		Debug.LogFormat ("Language {0}", value);
 	}
 
+    /// <summary>
+    /// Change the game's current state in UI
+    /// </summary>
+    /// <param name="state">new State</param>
 	public void StateSwitch (GameState state)
 	{
 		Debug.Log ("Gamepad ~ State Switch");

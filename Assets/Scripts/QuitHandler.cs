@@ -3,6 +3,9 @@ using System.Collections;
 
 public class QuitHandler : MonoBehaviour
 {
+	/// <summary>
+	/// Singleton
+	/// </summary>
 	public static QuitHandler main;
 	public GameObject window;
 

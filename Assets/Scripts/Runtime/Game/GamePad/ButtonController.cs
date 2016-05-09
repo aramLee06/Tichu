@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 [RequireComponent(typeof(AudioSource))]
-
+[System.Obsolete("No longer in use")]
 public class ButtonController : MonoBehaviour 
 {
 	private Button button;

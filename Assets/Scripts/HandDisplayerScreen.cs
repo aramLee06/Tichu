@@ -2,12 +2,28 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Hand displayer screen.
+/// </summary>
 public class HandDisplayerScreen : MonoBehaviour 
 {
+	/// <summary>
+	/// The width.
+	/// </summary>
 	public float width;
+	/// <summary>
+	/// The display card.
+	/// </summary>
 	public GameObject displayCard;
+	/// <summary>
+	/// The cards.
+	/// </summary>
 	public List<Transform> cards;
 
+	/// <summary>
+	/// Sets the cards.
+	/// </summary>
+	/// <param name="amount">Amount.</param>
 	public void SetCards (int amount)
 	{
 		//Debug.Log (amount);

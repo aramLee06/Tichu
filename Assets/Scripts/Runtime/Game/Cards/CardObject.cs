@@ -2,21 +2,54 @@
 using UnityEngine.UI;
 using System.Collections;
 
+/// <summary>
+/// Monobehaviour object for Cards
+/// </summary>
 public class CardObject : MonoBehaviour
 {
+	/// <summary>
+	/// The card.
+	/// </summary>
 	public Card card;
 
+	/// <summary>
+	/// The user interface handler.
+	/// </summary>
 	[System.NonSerialized] public UIHandler uiHandler;
 
+	/// <summary>
+	/// The name.
+	/// </summary>
 	new public string name;
+	/// <summary>
+	/// The type of the card.
+	/// </summary>
 	public CardType cardType;
+	/// <summary>
+	/// The value.
+	/// </summary>
 	public float value;
+	/// <summary>
+	/// The card image.
+	/// </summary>
 	public SpriteRenderer cardImage;
 
+	/// <summary>
+	/// Whether the card object is selected, dragged or hovering.
+	/// </summary>
 	public bool isSelected, isDragged, isHovering;
+	/// <summary>
+	/// The hand position.
+	/// </summary>
 	public int handPos;
 
+	/// <summary>
+	/// The manager.
+	/// </summary>
 	public Manager manager;
+	/// <summary>
+	/// The slot identifier.
+	/// </summary>
 	public SlotID slotId = SlotID.HAND;
 
 	public virtual void Start ()
@@ -54,6 +87,10 @@ public class CardObject : MonoBehaviour
 		}
 	}
 
+    /// <summary>
+    /// Quickly returns the CardObject's card
+    /// </summary>
+    /// <param name="cardObject">The card object</param>
 	public static implicit operator Card(CardObject cardObject)
 	{
 		return cardObject.card;

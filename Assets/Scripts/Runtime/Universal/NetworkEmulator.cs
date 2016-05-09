@@ -2,12 +2,27 @@
 using System.IO;
 using System.Collections.Generic;
 
+/// <summary>
+/// Network emulator.
+/// </summary>
 public class NetworkEmulator : MonoBehaviour
 {
+	/// <summary>
+	/// The manager.
+	/// </summary>
 	public Manager manager;
+	/// <summary>
+	/// Singleton
+	/// </summary>
 	public static NetworkEmulator main;
+	/// <summary>
+	/// Main controller
+	/// </summary>
 	public MainController netCon;
 
+	/// <summary>
+	/// The player indices
+	/// </summary>
 	public int[] playerIndex = new int[4];
 
 	[Tooltip("Enables debug logs when data is sent. Debug logs are not compiled, however.")]
@@ -16,7 +31,13 @@ public class NetworkEmulator : MonoBehaviour
 	private Stream stream;
 	private StreamWriter writer;
 
+	/// <summary>
+	/// The encryption dictionary.
+	/// </summary>
 	public Dictionary<byte, string> encryptionDictionary = new Dictionary<byte, string>(); //I'm getting real tired of this bug.
+	/// <summary>
+	/// The decryption dictionary.
+	/// </summary>
 	public Dictionary<string, byte> decryptionDictionary = new Dictionary<string, byte>(); 
 
 	public void Awake()
@@ -58,6 +79,9 @@ public class NetworkEmulator : MonoBehaviour
 		netCon.netEmu = this;
 	}
 
+	/// <summary>
+	/// Initializes the encryption dictionary.
+	/// </summary>
 	private void InitializeEncryptionDictionary()
 	{
 		char[] c = new char[16]
@@ -89,6 +113,11 @@ public class NetworkEmulator : MonoBehaviour
 		#endif
 	}
 
+	/// <summary>
+	/// Encrypts the string for JSON usage.
+	/// </summary>
+	/// <returns>The string.</returns>
+	/// <param name="input">Input.</param>
 	public string FixString(string input)
 	{
 		//Debug.Log (input);
@@ -109,6 +138,11 @@ public class NetworkEmulator : MonoBehaviour
 		return new string(newBytes);
 	}
 
+	/// <summary>
+	/// Decrypts the string.
+	/// </summary>
+	/// <returns>The string.</returns>
+	/// <param name="input">Input.</param>
 	public string UnfixString(string input)
 	{
 		//Debug.Log (input);
@@ -127,6 +161,10 @@ public class NetworkEmulator : MonoBehaviour
 		return new string(newBytes);
 	}
 
+	/// <summary>
+	/// Sends the data.
+	/// </summary>
+	/// <param name="msg">Message.</param>
 	public void SendData(string msg)
 	{
 		msg = FixString(msg);
@@ -146,6 +184,11 @@ public class NetworkEmulator : MonoBehaviour
 		catch(System.Exception e) { Debug.LogError(e.Message + "\n" + e.StackTrace + "\n<b>Original message:</b> " + msg); }
 	}
 
+	/// <summary>
+	/// Sends the data to a specified id.
+	/// </summary>
+	/// <param name="id">Identifier.</param>
+	/// <param name="msg">Message.</param>
 	public void SendDataTo(int id, string msg)
 	{
 		msg = FixString(msg);
@@ -168,6 +211,10 @@ public class NetworkEmulator : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Sends the data to host.
+	/// </summary>
+	/// <param name="msg">Message.</param>
 	public void SendDataToHost(string msg)
 	{
 		msg = FixString(msg);
@@ -187,6 +234,10 @@ public class NetworkEmulator : MonoBehaviour
 		catch (System.Exception e) { Debug.LogError(e.Message + "\n" + e.StackTrace); }
 	}
 
+	/// <summary>
+	/// Receives the data.
+	/// </summary>
+	/// <param name="msg">Message.</param>
 	public void ReceiveData (string msg)
 	{
 		msg = UnfixString(msg);

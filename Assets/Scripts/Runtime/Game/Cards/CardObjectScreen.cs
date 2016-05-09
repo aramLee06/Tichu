@@ -2,9 +2,18 @@
 using UnityEngine.UI;
 using System.Collections;
 
+/// <summary>
+/// Card Object specified for the Screen's side
+/// </summary>
 public class CardObjectScreen : CardObject
 {
+	/// <summary>
+	/// The user interface screen handler.
+	/// </summary>
 	public ScreenUIHandler uiScreenHandler;
+	/// <summary>
+	/// The owner.
+	/// </summary>
 	public byte owner = 0;
 
 	public override void Start ()

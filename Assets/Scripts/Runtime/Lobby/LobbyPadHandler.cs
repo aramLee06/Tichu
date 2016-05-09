@@ -4,21 +4,54 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using UXLib.User;
 
+/// <summary>
+/// Lobby pad handler.
+/// </summary>
 public class LobbyPadHandler : MonoBehaviour 
 {
+	/// <summary>
+	/// The client controller.
+	/// </summary>
 	public ClientController client;
 
+	/// <summary>
+	/// Singleton
+	/// </summary>
 	public static LobbyPadHandler main;
 
+	/// <summary>
+	/// The input field.
+	/// </summary>
 	public InputField inputField;
+	/// <summary>
+	/// The avatar buttons.
+	/// </summary>
 	public Button[] avatarButtons;
+	/// <summary>
+	/// The leave buttons.
+	/// </summary>
 	public Button[] leaveButtons;
 
+	/// <summary>
+	/// The selected avatar.
+	/// </summary>
 	public int selectedAvatar = -1;
+	/// <summary>
+	/// Selected name
+	/// </summary>
 	public string selectedName = "";
+	/// <summary>
+	/// The next scene.
+	/// </summary>
 	public string nextScene = "";
 
+	/// <summary>
+	/// Have these players joined?.
+	/// </summary>
 	public bool[] joined;
+	/// <summary>
+	/// Are these players ready?
+	/// </summary>
 	public bool[] ready;
 
 	public void Awake ()
@@ -32,6 +65,10 @@ public class LobbyPadHandler : MonoBehaviour
 		client.Send (4, "J");
 	}
 
+	/// <summary>
+	/// Joins the game
+	/// </summary>
+	/// <param name="selected">Slot.</param>
 	public void LobbyJoin (int selected)
 	{
 		string data = "/" + selected;
@@ -66,6 +103,11 @@ public class LobbyPadHandler : MonoBehaviour
 		Handheld.Vibrate ();
 	}
 
+	/// <summary>
+	/// Joins the AI.
+	/// </summary>
+	/// <param name="selected">Selected.</param>
+	/// <param name="difficulty">Difficulty.</param>
 	public void AIJoin (int selected, AIDifficulty difficulty)
 	{
 		string data = "A" + selected + ((int) difficulty + 1);
@@ -91,6 +133,10 @@ public class LobbyPadHandler : MonoBehaviour
 		client.Send (2, data);
 	}
 
+	/// <summary>
+	/// Leave the specified slot.
+	/// </summary>
+	/// <param name="leave">slot.</param>
 	public void Leave (int leave)
 	{
 		string data = "L" + leave;
@@ -131,6 +177,10 @@ public class LobbyPadHandler : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Whether everyone is ready
+	/// </summary>
+	/// <returns></returns>
 	public bool AllReady ()
 	{
 		for (int i = 0; i < ready.Length; i++)
@@ -145,6 +195,11 @@ public class LobbyPadHandler : MonoBehaviour
 		return true;
 	}
 
+	/// <summary>
+	/// Handle received data
+	/// </summary>
+	/// <param name="index">Index.</param>
+	/// <param name="msg">Message.</param>
 	public void ReceiveData (int index, string msg)
 	{
 		Debug.Log (msg);

@@ -3,7 +3,13 @@ using System.Collections;
 
 public class MenuHandler : MonoBehaviour 
 {
+	/// <summary>
+	/// The menu cards.
+	/// </summary>
 	public MenuCard[] menuCard;
+	/// <summary>
+	/// The previous menu.
+	/// </summary>
 	public byte previousMenu = 0;
 
 	// Return To Main Menu
@@ -122,6 +128,9 @@ public class MenuHandler : MonoBehaviour
 		}
 	}
 
+	/// <summary>
+	/// Deactivates the buttons.
+	/// </summary>
 	public void DeactivateButtons ()
 	{
 		for (int i = 0; i < menuCard.Length; i++)

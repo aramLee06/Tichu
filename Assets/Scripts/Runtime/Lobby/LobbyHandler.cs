@@ -2,16 +2,37 @@
 using UnityEngine.SceneManagement;
 using System.Collections;
 
+/// <summary>
+/// Lobby handler.
+/// </summary>
 public class LobbyHandler : MonoBehaviour 
 {
+	/// <summary>
+	/// The host controller.
+	/// </summary>
 	public HostController host;
 
+	/// <summary>
+	/// Singleton
+	/// </summary>
 	public static LobbyHandler main;
 
+	/// <summary>
+	/// The lobby slots.
+	/// </summary>
 	public LobbySlot[] lobbySlot;
+	/// <summary>
+	/// The indexes of the users.
+	/// </summary>
 	public int[] userIndex;
+	/// <summary>
+	/// The names of the players.
+	/// </summary>
 	public string[] playerName = new string[4];
 
+	/// <summary>
+	/// The next scene.
+	/// </summary>
 	public string nextScene;
 
 	public void Awake ()
@@ -24,6 +45,11 @@ public class LobbyHandler : MonoBehaviour
 		host = GameObject.Find ("HostController").GetComponent<HostController> ();
 	}
 
+	/// <summary>
+	/// Handles the received data
+	/// </summary>
+	/// <param name="index">Index.</param>
+	/// <param name="msg">Message.</param>
 	public void ReceiveData (int index, string msg)
 	{
 		//Debug.Log (msg);

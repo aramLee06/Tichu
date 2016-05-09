@@ -10,23 +10,48 @@ using UXLib.User;
 
 using SimpleJSON;
 
+/// <summary>
+/// Connecting handler.
+/// </summary>
 public delegate void ConnectingHandler();
 
+/// <summary>
+/// Main controller.
+/// </summary>
 public class MainController : MonoBehaviour
 {
 	[SerializeField]
+	/// <summary>
+	/// The network emulator.
+	/// </summary>
 	public NetworkEmulator netEmu;
 	[SerializeField]
+	/// <summary>
+	/// The index of the user.
+	/// </summary>
 	public int userIndex = -1;
+	/// <summary>
+	/// The indices of the players.
+	/// </summary>
 	public int[] playerIndex = new int[4];
+	/// <summary>
+	/// The player number.
+	/// </summary>
 	public int playerNumber;
 	[SerializeField]
+	/// <summary>
+	/// The lobby scene.
+	/// </summary>
 	public string lobbyScene;
+
 
 	public string package_name = "com.cspmedia.uxlib.test";
 
 	public bool isConnected;
 
+	/// <summary>
+	/// Event that occurs when connecting.
+	/// </summary>
 	public event ConnectingHandler connectingEvent = delegate{};
 
 	public float timeout;
@@ -41,6 +66,9 @@ public class MainController : MonoBehaviour
 	/// </summary>
 	public UXConnectController conCtrler = null;
 
+	/// <summary>
+	/// Singleton
+	/// </summary>
 	public static MainController main;
 
 	public virtual void Awake ()
@@ -102,6 +130,9 @@ public class MainController : MonoBehaviour
 			Timeout();
 	}
 
+	/// <summary>
+	/// Timeout.
+	/// </summary>
 	public virtual void Timeout()
 	{
 		StopCoroutine(WaitUntilConnected());
@@ -116,6 +147,10 @@ public class MainController : MonoBehaviour
 		LoadScene ();
 	}
 
+	/// <summary>
+	/// Determines whether this instance has user index.
+	/// </summary>
+	/// <returns><c>true</c> if this instance has user index; otherwise, <c>false</c>.</returns>
 	public bool HasUserIndex ()
 	{
 		if (userIndex != -1)

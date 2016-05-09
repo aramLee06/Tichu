@@ -2,19 +2,49 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Card combination detector.
+/// </summary>
 public static class CardCombinationDetector 
 {
+	/// <summary>
+	/// The ordered hand.
+	/// </summary>
 	public static List<Card> orderedHand = new List<Card>();
 
+	/// <summary>
+	/// The play cards.
+	/// </summary>
 	public static List<Card> playCards = new List<Card>();
 
+	/// <summary>
+	/// The pair combos.
+	/// </summary>
 	public static List<CardCombination> pairCombos;
+	/// <summary>
+	/// The double pair combos.
+	/// </summary>
 	public static List<CardCombination> doublePairCombos;
+	/// <summary>
+	/// The three of A kind combos.
+	/// </summary>
 	public static List<CardCombination> threeOfAKindCombos;
+	/// <summary>
+	/// The full house combos.
+	/// </summary>
 	public static List<CardCombination> fullHouseCombos;
+	/// <summary>
+	/// The straight combos.
+	/// </summary>
 	public static List<CardCombination> straightCombos;
+	/// <summary>
+	/// The bomb combos.
+	/// </summary>
 	public static List<CardCombination> bombCombos;
 
+	/// <summary>
+	/// The combos.
+	/// </summary>
 	public static List<CardCombination> combos;
 
 	/// <summary>
@@ -39,23 +69,18 @@ public static class CardCombinationDetector
 			{
 				case PlayKind.ONE_PAIR:
 					combos = pairCombos;
-					Debug.Log ("Pairs");
 					break;
 				case PlayKind.STAIRS:
 					combos = doublePairCombos;
-					Debug.Log ("Stairs");
 					break;
 				case PlayKind.THREE_OF_A_KIND:
 					combos = threeOfAKindCombos;
-					Debug.Log ("Three Of A Kind");
 					break;
 				case PlayKind.STRAIGHT:
 					combos = straightCombos;
-					Debug.Log ("Straight");
 					break;
 				case PlayKind.BOMB:
 					combos = bombCombos;
-					Debug.Log ("Bomb");
 					break;
 			}
 
@@ -72,7 +97,7 @@ public static class CardCombinationDetector
 		{
 			for (int i = 0; i < orderedHand.Count; i++)
 			{
-				if (orderedHand [i].value > lastValue && lastValue != 10000)
+				if (orderedHand [i].value > lastValue && lastValue != 16)
 					return new List<Card> { orderedHand [i] };
 			}
 		}
@@ -89,6 +114,11 @@ public static class CardCombinationDetector
 		return null;
 	}
 
+	/// <summary>
+	/// Determines if the card is a normal card.
+	/// </summary>
+	/// <returns></returns>
+	/// <param name="card">Card.</param>
 	private static bool IsRegularCard(Card card)
 	{
 		if (card.GetType() == typeof(CardDog) || card.GetType() == typeof(CardDragon) || card.GetType() == typeof(CardMahJong) || card.GetType() == typeof(CardPhoenix))
@@ -96,6 +126,10 @@ public static class CardCombinationDetector
 		return true;
 	}
 
+	/// <summary>
+	/// Gets the possible combinations.
+	/// </summary>
+	/// <param name="hand">Hand.</param>
 	private static void GetPossibleCombinations(List<Card> hand)
 	{
 		orderedHand = CombinationHandler.OrderCards(hand);

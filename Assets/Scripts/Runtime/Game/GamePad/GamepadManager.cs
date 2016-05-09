@@ -4,51 +4,136 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Event delegate for when the connection is broken
+/// </summary>
 public delegate void GamepadTimeout();
+/// <summary>
+/// Event delegate for when a mahjong has been played and a wish value has been set
+/// </summary>
+/// <param name="value">The set wish value</param>
 public delegate void MajongWishReceived(int value);
 
+/// <summary>
+/// The Gamepad's manager
+/// </summary>
 public class GamepadManager : Manager
 {
+	/// <summary>
+	/// Occurs when thereś a timeout.
+	/// </summary>
 	public static event GamepadTimeout timeoutEvent = delegate { };
+	/// <summary>
+	/// Occurs when the majong wishvalue received.
+	/// </summary>
 	public static event MajongWishReceived majongReceivedEvent = delegate { };
 
+	/// <summary>
+	/// The wish value.
+	/// </summary>
 	public int wishValue;
 
 	[Header("General")]
+	/// <summary>
+	/// Singleton
+	/// </summary>
 	new public static GamepadManager main;
+	/// <summary>
+	/// The user interface.
+	/// </summary>
 	public GamePadUIHandler ui;
+	/// <summary>
+	/// Is the player ready?
+	/// </summary>
 	public bool ready = false;
+	/// <summary>
+	/// The index of the user.
+	/// </summary>
 	public int userIndex = 0;
+	/// <summary>
+	/// The card prefab.
+	/// </summary>
 	public GameObject cardPrefab;
+	/// <summary>
+	/// Various areas
+	/// </summary>
 	public Transform handArea, comboArea;
 
+	/// <summary>
+	/// Ping list for timeout
+	/// </summary>
 	public List<long> pings = new List<long>();
 
+	/// <summary>
+	/// The scoreboard.
+	/// </summary>
 	public GamepadScoreboard scoreboard;
+	/// <summary>
+	/// The ready indicator.
+	/// </summary>
 	public Image readyIndicator;
 
+	/// <summary>
+	/// If it got confirmation from the screen itś empty
+	/// </summary>
 	public bool emptyConfirmed;
 
+	/// <summary>
+	/// The next scene's name.
+	/// </summary>
 	public string nextScene;
 
+	/// <summary>
+	/// The trade areas.
+	/// </summary>
 	public Transform[] tradeArea = new Transform[3];
+	/// <summary>
+	/// The trade slots.
+	/// </summary>
 	public CardObject[] tradeSlot = new CardObject[3];
+	/// <summary>
+	/// The target players.
+	/// </summary>
 	public int[] targetPlayer = new int[3];
 
+	/// <summary>
+	/// The play slots.
+	/// </summary>
 	public List<CardObject> playSlot = new List<CardObject>();
 
+	/// <summary>
+	/// The current state.
+	/// </summary>
 	public GameState currentState;
 
+	/// <summary>
+	/// The hand.
+	/// </summary>
 	public List<Card> hand = new List<Card>();
 
+	/// <summary>
+	/// Is it my turn?
+	/// </summary>
 	public bool isMyTurn = false;
 
+	/// <summary>
+	/// The last amount of cards.
+	/// </summary>
 	public int lastCardAmount;
 
+	/// <summary>
+	/// The kind of the play.
+	/// </summary>
 	public PlayKind playKind;
 
+	/// <summary>
+	/// The lowest and highest values.
+	/// </summary>
 	public float lowestValue, highestValue;
 
+	/// <summary>
+	/// Is the screen ready to play?
+	/// </summary>
 	private bool screenReady = false;
 
 	public override void Awake()
@@ -72,6 +157,10 @@ public class GamepadManager : Manager
 		StartCoroutine(Ping());
 	}
 
+    /// <summary>
+    /// Sends a ping message to the Screen's GameManager to check whether there's still a connection
+    /// </summary>
+    /// <returns></returns>
 	private IEnumerator Ping()
 	{
 		yield return new WaitForSeconds(1f);
@@ -100,6 +189,10 @@ public class GamepadManager : Manager
 		}
 	}
 
+    /// <summary>
+    /// Sets up the used indexes for the trade.
+    /// </summary>
+    /// <param name="index">Own player's index</param>
 	public override void GetUserIndex (int index)
 	{
 		switch (index)
@@ -191,6 +284,10 @@ public class GamepadManager : Manager
 		readyIndicator.gameObject.SetActive(ready);
 	}
 
+    /// <summary>
+    /// Checks whether all trading slots have been filled.
+    /// </summary>
+    /// <returns>Are all slots filled?</returns>
 	public bool tradingSlotsFilled()
 	{
 		for(int i = 0; i < tradeSlot.Length; i++)
@@ -201,6 +298,10 @@ public class GamepadManager : Manager
 		return true;
 	}
 
+    /// <summary>
+    /// Checks if the trading slots actually contain something
+    /// </summary>
+    /// <returns></returns>
 	public bool tradingSlotContains ()
 	{
 		for(int i = 0; i < tradeSlot.Length; i++)
@@ -211,6 +312,9 @@ public class GamepadManager : Manager
 		return false;
 	}
 
+    /// <summary>
+    /// Skips the player's turn
+    /// </summary>
 	public void PassButton()
 	{
 		if (isMyTurn)
@@ -233,15 +337,29 @@ public class GamepadManager : Manager
 		}
 	}
 
+    /// <summary>
+    /// Selects the target player for the dragon event
+    /// </summary>
+    /// <param name="targetPlayer">Selected player</param>
 	public void DragonSelectPlayer(int targetPlayer) //Added as of 2016.03.30
 	{
 		NetworkEmulator.main.SendDataToHost("D" + playerNumber.ToString() + targetPlayer.ToString());
 	}
 
+	/// <summary>
+	/// The kinds of the possible plays.
+	/// </summary>
 	public PlayKind possiblePlayKind;
 
+	/// <summary>
+	/// The ordered cards.
+	/// </summary>
 	public List<Card> orderedCards;
 
+    /// <summary>
+    /// Validates whether the selected card combo is valid-to-play
+    /// </summary>
+    /// <returns></returns>
 	public bool ValidateCardCombo()
 	{
 		List<Card> comboCards = new List<Card>();
@@ -253,6 +371,9 @@ public class GamepadManager : Manager
 		return CombinationHandler.CheckCombination(comboCards, ref possiblePlayKind, lastValue, lastPlayKind, out orderedCards,lastCardAmount,hand,highestValue,lowestValue); //Adjusted as of 2016.03.21
 	}
 
+    /// <summary>
+    /// Sets player as ready.
+    /// </summary>
 	public void SetReady()
 	{
 		if (currentState == GameState.TRICK && isMyTurn)
@@ -296,16 +417,24 @@ public class GamepadManager : Manager
 		}
 	}
 
+    /// <summary>
+    /// Calls Tichu
+    /// </summary>
 	public void CallTichu()
 	{
 		NetworkEmulator.main.SendDataToHost("T" + playerNumber);
 	}
 
+    /// <summary>
+    /// Adds a card to the hand
+    /// </summary>
+    /// <param name="cardId">ID of the card to add</param>
 	public void AddCard(int cardId)
 	{
 		hand.Add(deck[cardId]);
 	}
 
+    [System.Obsolete("Unused")]
 	public void MoveCardToTradeSlot(SlotID slot)
 	{
 		if (selectedCardObject && tradeSlot[(int) slot] == null)
@@ -315,7 +444,8 @@ public class GamepadManager : Manager
 		}
 	}
 
-	public void MoveCardToCombo()
+    [System.Obsolete("Unused")]
+    public void MoveCardToCombo()
 	{
 		if(selectedCardObject)
 		{
@@ -324,7 +454,8 @@ public class GamepadManager : Manager
 		}
 	}
 
-	public void MoveCardToHand()
+    [System.Obsolete("Unused")]
+    public void MoveCardToHand()
 	{
 		if(selectedCardObject)
 		{
@@ -332,6 +463,11 @@ public class GamepadManager : Manager
 		}
 	}
 
+    /// <summary>
+    /// Moves the selected card object to the specified slot (-2 being the play slot, -1 the hand and >0 the trading slots)
+    /// </summary>
+    /// <param name="cardObj">Specified card object to move</param>
+    /// <param name="newSlot">The slot to move the card to (-2 = play, -1 = hand, 0,1,2 = trade slots)</param>
 	private void MoveCard(CardObject cardObj,int newSlot)
 	{
 		if ((int) cardObj.slotId > -1)
@@ -354,6 +490,10 @@ public class GamepadManager : Manager
 		cardObj.slotId = (SlotID) newSlot;
 	}
 
+    /// <summary>
+    /// Changes the game's current state
+    /// </summary>
+    /// <param name="state">The new state</param>
 	public void SetState(GameState state)
 	{
 		//Debug.Log ("GamepadManager ~ SetState");
@@ -378,6 +518,9 @@ public class GamepadManager : Manager
 		}
 	}
 
+    /// <summary>
+    /// Executes the trade phase.
+    /// </summary>
 	public void PerformTrade()
 	{
 		string message = "t" + playerNumber;
@@ -399,6 +542,9 @@ public class GamepadManager : Manager
 		NetworkEmulator.main.SendDataToHost(message);
 	}
 
+    /// <summary>
+    /// Removes all cards from hand
+    /// </summary>
 	private void RemoveAllCards()
 	{
 		while(hand.Count > 0)
@@ -408,6 +554,10 @@ public class GamepadManager : Manager
 		}
 	}
 
+    /// <summary>
+    /// Handles received data
+    /// </summary>
+    /// <param name="data">Received data string</param>
 	public override void ReceiveData(string data)
 	{
 		char[] bytes = data.ToCharArray();

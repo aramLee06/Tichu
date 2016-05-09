@@ -3,41 +3,99 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Event delegate for when a player's turn changes
+/// </summary>
+/// <param name="currentPlayer">Current active player</param>
 public delegate void TurnProgressHandler(int currentPlayer);
 
 public class GameManager : Manager
 {
+	/// <summary>
+	/// Turn progression event
+	/// </summary>
 	public static event TurnProgressHandler turnProgressEvent = delegate { };
 
 	[Header("General")]
+	/// <summary>
+	/// Singleton
+	/// </summary>
 	new public static GameManager main;
+	/// <summary>
+	/// The user interface.
+	/// </summary>
 	public ScreenUIHandler ui;
+	/// <summary>
+	/// Current state
+	/// </summary>
 	public GameState _currentState;
 
+	/// <summary>
+	/// Various timers
+	/// </summary>
 	public Timer gameTimer, turnTimer;
 
+	/// <summary>
+	/// The info handler.
+	/// </summary>
 	public InfoHandler infoHandler;
 
+	/// <summary>
+	/// All cards.
+	/// </summary>
 	public static List<GameObject> allCards = new List<GameObject>();
 
+	/// <summary>
+	/// The human players.
+	/// </summary>
 	public PlayerHandler[] humanPlayers;
+	/// <summary>
+	/// The computer players.
+	/// </summary>
 	public ComputerPlayer[] computerPlayers;
 
+	/// <summary>
+	/// The scoreboard.
+	/// </summary>
 	public GameObject scoreboard;
+	/// <summary>
+	/// The game end board.
+	/// </summary>
 	public GameObject gameEndBoard;
 	//public TurnIndicator turnIndicator;
 
+	/// <summary>
+	/// The out-of-cards FX.
+	/// </summary>
 	public GameObject[] outOfCardsFX;
+	/// <summary>
+	/// The fx positions.
+	/// </summary>
 	public Transform[] fxPosition;
 
 	private bool undoneReadyOnStart = false;
 
+	/// <summary>
+	/// The individual scores.
+	/// </summary>
 	private int[] individualScores = new int[4];
+	/// <summary>
+	/// The individual total scores.
+	/// </summary>
 	private int[] individualScoresTotal = new int[4];
+	/// <summary>
+	/// The out order.
+	/// </summary>
 	public List<int> outOrder = new List<int>();
 
+	/// <summary>
+	/// The duration of the confetti effect.
+	/// </summary>
 	public float confettiEffectDuration = 6;
 
+	/// <summary>
+	/// Current state variable. The set manages some things for when the state changes.
+	/// </summary>
 	public GameState currentState
 	{
 		get
@@ -153,14 +211,35 @@ public class GameManager : Manager
 		}
 	}
 
+	/// <summary>
+	/// The next scene.
+	/// </summary>
 	public string nextScene;
+	/// <summary>
+	/// The players.
+	/// </summary>
 	public PlayerHandler[] players;
+	/// <summary>
+	/// The win score.
+	/// </summary>
 	public int winScore = 1000;
+	/// <summary>
+	/// The win team.
+	/// </summary>
 	public int winTeam = 0;
 
 	[Header("Trick")]
+	/// <summary>
+	/// The current active player.
+	/// </summary>
 	public int currentActivePlayer = 0;
+	/// <summary>
+	/// The leader identifier.
+	/// </summary>
 	public int leaderId = 0;
+	/// <summary>
+	/// The current turn.
+	/// </summary>
 	public int _currentTurn = 0;
 	public int currentTurn
 	{
@@ -179,11 +258,26 @@ public class GameManager : Manager
 				turnTimer.Stop();
 		}
 	}
+	/// <summary>
+	/// The current trick.
+	/// </summary>
 	public int currentTrick = 0;
+	/// <summary>
+	/// The players out.
+	/// </summary>
 	public bool[] playersOut;
+	/// <summary>
+	/// The number of passes.
+	/// </summary>
 	public int passes = 0;
 
+	/// <summary>
+	/// The last player.
+	/// </summary>
 	public int _lastPlayer = 0;
+	/// <summary>
+	/// The trick gain player.
+	/// </summary>
 	public int trickGainPlayer = 0;
 	public int lastPlayer
 	{
@@ -198,17 +292,38 @@ public class GameManager : Manager
 		}
 	}
 
+	/// <summary>
+	/// The card object prefab.
+	/// </summary>
 	public GameObject cardPrefab;
+	/// <summary>
+	/// The card parent.
+	/// </summary>
 	public Transform cardParent;
 	//public List<CardObject> lastPlay = new List<CardObject>();
+	/// <summary>
+	/// The trick stash.
+	/// </summary>
 	public List<Card> trickStash = new List<Card>();
 
+	/// <summary>
+	/// The trick card destroy delay.
+	/// </summary>
 	public float trickCardDestroyDelay = .5f;
 
 	[Header("Transition")]
+	/// <summary>
+	/// The transition end time.
+	/// </summary>
 	public float transitionEndTime;
+	/// <summary>
+	/// The next state after the transition
+	/// </summary>
 	public GameState transitionNextState;
 
+	/// <summary>
+	/// The identifier deck.
+	/// </summary>
 	public List<Card> idDeck = new List<Card>();
 
 	public override void Awake()
@@ -225,6 +340,11 @@ public class GameManager : Manager
 		SceneManager.LoadScene(0);
 	}
 
+	/// <summary>
+	/// Checks whether a player is human or computer controlled
+	/// </summary>
+	/// <param name="id">The player's ID</param>
+	/// <returns></returns>
 	public override bool IsHuman(int id)
 	{
 		return players[id].isHumanPlayer;
@@ -235,6 +355,9 @@ public class GameManager : Manager
 		return lastPlayer;
 	}
 
+	/// <summary>
+	/// Handles the dragon card event
+	/// </summary>
 	public override void HandleDragon() //Added as of 2016.03.30
 	{
 		currentState = GameState.DRAGON_CARD;
@@ -251,6 +374,9 @@ public class GameManager : Manager
 		}
 	}
 
+	/// <summary>
+	/// Handles the Mahjong card event
+	/// </summary>
 	public override void HandleMahjong() //Added as of 2016.03.30
 	{
 		currentState = GameState.DRAGON_CARD;
@@ -278,11 +404,19 @@ public class GameManager : Manager
 		ui = (ScreenUIHandler) ScreenUIHandler.main;
 	}
 
+	/// <summary>
+	/// Handles the game timer's event
+	/// </summary>
+	/// <param name="args">Arguments</param>
 	private void OnRoundTimerEnd(System.EventArgs args)
 	{
 		currentState = GameState.GAME_RESULT;
 	}
 
+	/// <summary>
+	/// Handles the turn timer's event
+	/// </summary>
+	/// <param name="args">Arguments</param>
 	private void OnTurnTimerEnd(System.EventArgs args)
 	{
 		////Debug.Log("Turn Timer ended");
@@ -291,6 +425,9 @@ public class GameManager : Manager
 		NetworkEmulator.main.SendDataToHost("P" + playerId + "+");
 	}
 
+	/// <summary>
+	/// Sets the active players to either human players or computer players, according to the set up settings.
+	/// </summary>
 	private void SetPlayers()
 	{
 		players [0] = humanPlayers [0];
@@ -309,6 +446,10 @@ public class GameManager : Manager
 		}
 	}
 
+	/// <summary>
+	/// Misnamed function. Checks whether there are any clone cards and removes them.
+	/// </summary>
+	/// <returns></returns>
 	private IEnumerator Debuge()
 	{
 		yield return new WaitForSeconds(1);
@@ -340,6 +481,9 @@ public class GameManager : Manager
 		StartCoroutine(Debuge());
 	}
 
+	/// <summary>
+	/// Sets up the players' teams
+	/// </summary>
 	private void CreateTeams()
 	{
 		for (int i = 0; i < players.Length; i++)
@@ -348,12 +492,19 @@ public class GameManager : Manager
 		}
 	}
 
+	/// <summary>
+	/// Creates the decks.
+	/// </summary>
 	private void CreateDecks()
 	{
 		base.CreateIDDeck();
 		idDeck = new List<Card>(deck);
 	}
 
+	/// <summary>
+	/// Shuffles the cards.
+	/// </summary>
+	/// <param name="attempt">Current attempt.</param>
 	private void ShuffleCards(int attempt = 0)
 	{
 		//////Debug.Log("Shuffling Cards...");
@@ -394,6 +545,10 @@ public class GameManager : Manager
 		}
 	}
 
+	/// <summary>
+	/// Checks if any human is ready.
+	/// </summary>
+	/// <returns><c>true</c>, if any human is ready, <c>false</c> otherwise.</returns>
 	private bool AnyHumanReady()
 	{
 		bool ready = false;
@@ -410,7 +565,9 @@ public class GameManager : Manager
 
 		return ready || !containsHuman;
 	}
-
+	/// <summary>
+	/// State Machine.
+	/// </summary>
 	private void Update()
 	{
 		//////Debug.Log(currentState);
@@ -455,6 +612,9 @@ public class GameManager : Manager
 		}
 	}
 
+	/// <summary>
+	/// Starts the Trick
+	/// </summary>
 	private void TrickStart()
 	{
 		DetermineLead();
@@ -468,6 +628,9 @@ public class GameManager : Manager
 		turnProgressEvent((leaderId + currentTurn) % players.Length);
 	}
 
+	/// <summary>
+	/// Determines the lead player.
+	/// </summary>
 	private void DetermineLead()
 	{
 		if (currentTrick == 0)
@@ -494,12 +657,19 @@ public class GameManager : Manager
 		}
 	}
 
+	/// <summary>
+	/// Perform Transition
+	/// </summary>
+	[System.Obsolete("Unused")]
 	private void Transition()
 	{
 		if (Time.time >= transitionEndTime)
 			currentState = transitionNextState;
 	}
 
+	/// <summary>
+	/// Starts the Round
+	/// </summary>
 	private void RoundStart()
 	{
 		if(!undoneReadyOnStart)
@@ -526,6 +696,10 @@ public class GameManager : Manager
 		}
 	}
 
+	/// <summary>
+	/// Deals the cards.
+	/// </summary>
+	/// <param name="amount">Amount of cards.</param>
 	private void DealCards(int amount)
 	{
 		//////Debug.Log("Currently dealing cards (" + amount + ")",Color.cyan);
@@ -545,6 +719,9 @@ public class GameManager : Manager
 		}
 	}
 
+	/// <summary>
+	/// Perform first deal round
+	/// </summary>
 	private void FirstDeal()
 	{
 		//Players can decide to call grand tichu or not.
@@ -556,6 +733,10 @@ public class GameManager : Manager
 		}
 	}
 
+	/// <summary>
+	/// Waits for players to be ready.
+	/// </summary>
+	/// <param name="nextState">Next state.</param>
 	private void WaitForPlayersReady(GameState nextState)
 	{
 		if(AllPlayersReady())
@@ -566,6 +747,10 @@ public class GameManager : Manager
 		}
 	}
 
+	/// <summary>
+	/// Waits for players to confirm the trade.
+	/// </summary>
+	/// <returns></returns>
 	private IEnumerator WaitForPlayersTradeConfirm()
 	{
 		while (!AllPlayersTraded())
@@ -577,6 +762,9 @@ public class GameManager : Manager
 		TrickStart ();
 	}
 
+	/// <summary>
+	/// Executes the round's result
+	/// </summary>
 	private void RoundResult()
 	{
 		//////Debug.Log("Round result being executed",Color.magenta);
@@ -638,6 +826,10 @@ public class GameManager : Manager
 		}
 	}
 
+	/// <summary>
+	/// Checks whether there's a winner
+	/// </summary>
+	/// <returns></returns>
 	private bool GotWinner()
 	{
 		bool win = false;
@@ -657,6 +849,10 @@ public class GameManager : Manager
 		return win;
 	}
 
+	/// <summary>
+	/// Checks whether all players are ready
+	/// </summary>
+	/// <returns></returns>
 	private bool AllPlayersReady()
 	{
 		foreach(PlayerHandler player in players)
@@ -667,6 +863,10 @@ public class GameManager : Manager
 		return true;
 	}
 
+	/// <summary>
+	/// Checks whether all players have traded
+	/// </summary>
+	/// <returns></returns>
 	private bool AllPlayersTraded()
 	{
 		foreach(PlayerHandler player in players)
@@ -677,6 +877,9 @@ public class GameManager : Manager
 		return true;
 	}
 
+	/// <summary>
+	/// Sets the players unready.
+	/// </summary>
 	private void SetPlayersUnready()
 	{
 		foreach(PlayerHandler player in players)
@@ -686,6 +889,10 @@ public class GameManager : Manager
 		NetworkEmulator.main.SendData("R9");
 	}
 
+	/// <summary>
+	/// Progresses the turn.
+	/// </summary>
+	/// <param name="forReal">Whether to actually increase the current turn</param>
 	private void ProgressTurn(bool forReal = true)
 	{
 		if(forReal)
@@ -720,6 +927,10 @@ public class GameManager : Manager
 		SetPlayersUnready();
 	}
 
+	/// <summary>
+	/// Handle received data
+	/// </summary>
+	/// <param name="data">Received data string.</param>
 	public override void ReceiveData(string data)
 	{
 		char[] bytes = data.ToCharArray();
@@ -982,6 +1193,11 @@ public class GameManager : Manager
 			ui.GetHand (i);
 	}
 
+	/// <summary>
+	/// Plaies the out-of-cards effect.
+	/// </summary>
+	/// <param name="fxNumber">Fx ID number.</param>
+	/// <param name="posNumber">Position ID (player id).</param>
 	public void PlayOutEffect(int fxNumber, int posNumber)
 	{
 		try
@@ -992,6 +1208,10 @@ public class GameManager : Manager
 		catch { }
 	}
 
+	/// <summary>
+	/// Checks if most players are out
+	/// </summary>
+	/// <returns></returns>
 	public bool MostPlayersOut()
 	{
 		int amount = 0;
@@ -1003,6 +1223,9 @@ public class GameManager : Manager
 		return amount >= 3;
 	}
 
+	/// <summary>
+	/// Changes the player turn.
+	/// </summary>
 	public override void ChangePlayerTurn()
 	{
 		TrickEnd();
@@ -1011,11 +1234,20 @@ public class GameManager : Manager
 		turnProgressEvent((leaderId + currentTurn) % players.Length);
 	}
 
+	/// <summary>
+	/// Changes the winning player.
+	/// </summary>
+	/// <param name="playerId">Player identifier.</param>
 	public override void ChangeWinPlayer(int playerId)
 	{
 		lastPlayer = playerId;
 	}
 
+	/// <summary>
+	/// Handle round's end
+	/// </summary>
+	/// <param name="teamWin">Is it a team win?</param>
+	/// <param name="winningTeam">Winning team.</param>
 	private void RoundEnd(bool teamWin, int winningTeam)
 	{
 		currentState = GameState.ROUND_RESULT;
@@ -1100,6 +1332,10 @@ public class GameManager : Manager
 		}
 	}
 
+	/// <summary>
+	/// Ends the trick
+	/// </summary>
+	/// <param name="isEnd">Is the final trick?</param>
 	private void TrickEnd(bool isEnd = false) //Adjusted as of 2016.03.30
 	{
 		currentState = GameState.TRICK_RESULT;
@@ -1121,6 +1357,10 @@ public class GameManager : Manager
 			TrickEndPartTwo(isEnd);
 	}
 
+	/// <summary>
+	/// Later part of trickś end
+	/// </summary>
+	/// <param name="isEnd">Last trick?</param>
 	private void TrickEndPartTwo(bool isEnd = false) //Added as of 2016.03.30
 	{
 		if (trickStash.Count > 0)
@@ -1161,6 +1401,10 @@ public class GameManager : Manager
 		turnProgressEvent((leaderId + currentTurn) % players.Length);
 	}
 
+	/// <summary>
+	/// Sets the player tichu.
+	/// </summary>
+	/// <param name="player">Player.</param>
 	public void SetPlayerTichu(PlayerHandler player)
 	{
 		switch(currentState)
@@ -1176,6 +1420,7 @@ public class GameManager : Manager
 				break;
 		}
 
-		player.displayTichu.Display (player.tichuType);
+		if (player.tichuType != TichuType.NONE)
+			player.displayTichu.Display (player.tichuType);
 	}
 }

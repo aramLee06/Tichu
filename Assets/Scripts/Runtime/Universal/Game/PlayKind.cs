@@ -1,4 +1,7 @@
-﻿public enum PlayKind
+﻿/// <summary>
+/// Play kind.
+/// </summary>
+public enum PlayKind
 {
     NONE, //Also known as "There is no last play" or "You're the lead".
     SINGLE_PLAY, //A single card is being played. Like ♦4 or ♣A.

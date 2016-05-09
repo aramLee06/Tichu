@@ -2,12 +2,25 @@
 using UnityEngine.UI;
 using System.Collections;
 
+/// <summary>
+/// Mahjong screen handler.
+/// </summary>
 public class MahjongScreenHandler : MonoBehaviour 
 {
+	/// <summary>
+	/// The selected value.
+	/// </summary>
 	public int value;
 	public Text text;
+	/// <summary>
+	/// The user interface.
+	/// </summary>
 	public GamePadUIHandler ui;
 
+	/// <summary>
+	/// Sets the mahjongś wish card value
+	/// </summary>
+	/// <param name="newval">Value.</param>
 	public void SetValue (int newval)
 	{
 		if ((value + newval) >= 1 && (value + newval) <= 13)

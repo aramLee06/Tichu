@@ -3,6 +3,9 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using System.Collections;
 
+/// <summary>
+/// Custom editor for ProfileIconList.cs monobehaviour
+/// </summary>
 [CustomEditor(typeof(ProfileIconList))]
 public class EditorProfileIconList : Editor
 {
@@ -72,6 +75,12 @@ public class EditorProfileIconList : Editor
         }
     }
 
+    /// <summary>
+    /// A quick way to draw a Sprite Object Field
+    /// </summary>
+    /// <param name="label">Label of the object</param>
+    /// <param name="sprite">Default sprite</param>
+    /// <returns>The inserted sprite</returns>
     private Sprite TextureField(string label, Sprite sprite)
     {
         Sprite ret = null;

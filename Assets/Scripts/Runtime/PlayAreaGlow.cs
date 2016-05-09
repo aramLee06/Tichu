@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
+[System.Obsolete("Unused")]
 public class PlayAreaGlow : MonoBehaviour {
 
 	public enum GlowState { Active, Inactive, Transition } //Transition State only for testing purposes, remove in lieu of coroutine

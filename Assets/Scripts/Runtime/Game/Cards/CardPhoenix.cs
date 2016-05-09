@@ -1,9 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Phoenix' special card
+/// </summary>
 [System.Serializable]
 public class CardPhoenix : Card
 {
+
+    /// <summary>
+    /// Called when the card has been placed
+    /// </summary>
+    /// <param name="playerId">ID of the player that places the card</param>
     public override void OnPlacement(int playerId)
     {
         SpecialCardEffectHandler.PhoenixCard();

@@ -1,18 +1,48 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Door transition.
+/// </summary>
 public class DoorTransition : MonoBehaviour
 {
+	/// <summary>
+	/// Singleton
+	/// </summary>
     public static DoorTransition transition;
 
+	/// <summary>
+	/// The doors
+	/// </summary>
     public Transform doorLeft, doorRight;
+	/// <summary>
+	/// The door position curve.
+	/// </summary>
     public AnimationCurve doorPosition;
+	/// <summary>
+	/// The width of a single door.
+	/// </summary>
     public float width;
+	/// <summary>
+	/// The time.
+	/// </summary>
     private float time = 0;
+	/// <summary>
+	/// Is it closed?
+	/// </summary>
     public bool closed;
+	/// <summary>
+	/// The next scene id.
+	/// </summary>
     public int nextScene;
+	/// <summary>
+	/// The name of the next scene.
+	/// </summary>
     public string nextSceneName;
 
+	/// <summary>
+	/// Does it use the sceneś name, rather than the id?.
+	/// </summary>
     public bool useName;
 
     public void Start()
@@ -25,6 +55,10 @@ public class DoorTransition : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+	/// <summary>
+	/// Close to the specified nextScene.
+	/// </summary>
+	/// <param name="nextScene">Next scene.</param>
     public void Close(string nextScene)
     {
         nextSceneName = nextScene;
@@ -34,6 +68,10 @@ public class DoorTransition : MonoBehaviour
         closed = true;
     }
 
+	/// <summary>
+	/// Close to the specified buildIndex.
+	/// </summary>
+	/// <param name="buildIndex">Build index.</param>
     public void Close(int buildIndex)
     {
         this.nextScene = buildIndex;
@@ -68,6 +106,9 @@ public class DoorTransition : MonoBehaviour
     }
 }
 
+/// <summary>
+/// Rerouted SceneManager to activate the DoorTransition
+/// </summary>
 public class SceneManager
 {
     public static void LoadScene(string sceneName)

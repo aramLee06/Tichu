@@ -3,9 +3,15 @@ using UnityEditor;
 using System.Collections;
 using UnityEditor.SceneManagement;
 
+/// <summary>
+/// Custom editor for ComputerPlayer.cs monobehaviour
+/// </summary>
 [CustomEditor(typeof(ComputerPlayer))]
 public class EditorComputerPlayerInspector : Editor
 {
+	/// <summary>
+	/// The target module script.
+	/// </summary>
     private MonoScript script;
 
     private static System.Type[] acceptedModuleTypes = new System.Type[]
