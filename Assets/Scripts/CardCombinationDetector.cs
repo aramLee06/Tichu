@@ -39,18 +39,23 @@ public static class CardCombinationDetector
 			{
 				case PlayKind.ONE_PAIR:
 					combos = pairCombos;
+					Debug.Log ("Pairs");
 					break;
 				case PlayKind.STAIRS:
 					combos = doublePairCombos;
+					Debug.Log ("Stairs");
 					break;
 				case PlayKind.THREE_OF_A_KIND:
 					combos = threeOfAKindCombos;
+					Debug.Log ("Three Of A Kind");
 					break;
 				case PlayKind.STRAIGHT:
 					combos = straightCombos;
+					Debug.Log ("Straight");
 					break;
 				case PlayKind.BOMB:
 					combos = bombCombos;
+					Debug.Log ("Bomb");
 					break;
 			}
 
@@ -62,15 +67,22 @@ public static class CardCombinationDetector
 						return combos [i].combination;
 				}
 			}
-			else
-				return null;
 		}
 		else
 		{
 			for (int i = 0; i < orderedHand.Count; i++)
 			{
-				if (orderedHand [i].value > lastValue && lastValue != 15)
+				if (orderedHand [i].value > lastValue && lastValue != 10000)
 					return new List<Card> { orderedHand [i] };
+			}
+		}
+
+		if (bombCombos.Count > 0)
+		{
+			for (int i = 0; i < bombCombos.Count; i++)
+			{
+				if (CombinationHandler.IsHigher (bombCombos [i].combination, lastValue))
+					return bombCombos [i].combination;
 			}
 		}
 
